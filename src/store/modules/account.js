@@ -1,6 +1,6 @@
 import { message } from 'ant-design-vue';
 import db from 'utils/sessionStorage';
-// import { login, logout, fetchCurrentUserInfo, fetchLogin } from '@/api/public.js';
+import { logout, fetchCurrentUserInfo, fetchLogin } from '@/api/public.js';
 import md5 from 'js-md5'
 import { validatenull } from '@/utils/validate'
 

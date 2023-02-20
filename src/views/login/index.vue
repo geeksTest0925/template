@@ -39,7 +39,7 @@ import {
 import { Form, message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import store from '@/store'
-// import { fetchCode } from '@/api/common'
+import { fetchCode } from '@/api/public'
 import { authInit } from '@/auth'
 import { trackIns } from '@/track'
 

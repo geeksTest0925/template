@@ -266,6 +266,7 @@ export class AuthDirective {
         const anyCreated = this.anyCreated.bind(this);
         app.directive("auth-and", {
             created (el, binding, vnode) {
+                console.log(el, binding, vnode,'el, binding, vnode');
                 andCreated(el, binding, vnode);
             },
         });

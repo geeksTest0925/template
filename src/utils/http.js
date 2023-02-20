@@ -26,7 +26,6 @@ HTTP_REQUEST.interceptors.request.use(
         if (token && token !== '') {
             config.headers['Blade-Auth'] = 'bearer ' + token;
         }
-        // config.headers['Blade-Auth'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIxMDAwMDAiLCJyb2xlX3RpdGxlcyI6IumhueebrueuoeeQhuWRmCIsInVzZXJfbmFtZSI6IueBteWig-WuojExNiIsInRva2VuX3R5cGUiOiJhY2Nlc3NfdG9rZW4iLCJyb2xlX25hbWUiOiJtYWxsX2FkbWluIiwicG9zdF9pZCI6Ii0xIiwidXNlcl9pZCI6IjEwMDAyMiIsInJvbGVfaWQiOiIxMDAwMDUiLCJuaWNrX25hbWUiOiLngbXlooPlrqIxMTYiLCJuYW1lIjoi54G15aKD5a6iMTE2IiwiZGV0YWlsIjp7fSwiZGVwdF9pZCI6Ii0xIiwiYWNjb3VudCI6IjE4NzIwMDgxNzg4IiwiY2xpZW50X2lkIjoibGp5dEh0Z2xXZWIiLCJleHAiOjE2NjY2ODk3MzgsIm5iZiI6MTY2NjA4NDkzOH0.EmkZ9lChXkhiMZUd5G2SFlepx1zOmNEgmdXfWxjWhmg';
         config.headers['Authorization'] = 'Basic bGp5dEh0Z2xXZWI6MEQxQTc0MDIwMkRBNzZEMA==';
         return config
     },

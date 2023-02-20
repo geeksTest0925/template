@@ -15,18 +15,11 @@ const constRouter = [
         path: "/home",
         name: "HOME",
         component: PortalView,
-        meta: {
-            level: 1
-        },
         redirect: '/home/index',
         children: [
             {
                 path: "index",
                 name: "HOME_DETAIL",
-                meta: {
-                    level: 2,
-                    // auth: true
-                },
                 component: require('@/views/home/index.vue').default
             }
         ]
@@ -72,39 +65,26 @@ router.beforeEach(async (to, from, next) => {
     }
     let token = db.get("USER_TOKEN");
     let user = db.get("USER_INFO");
-    // if (token.length && user) {
-    //     // 非菜单点击时路由变化的菜单高亮
-    //     await updateMenuOpenKeys(to);
-    //     // 403校验
-    //     if (to?.meta?.auth) {
-    //         // const isPermission = await checkRoutePermission(to);
-    //         if (isPermission) {
-    //             next();
-    //             return;
-    //         } else {
-    //             next("/403");
-    //             return;
-    //         }
-    //     }
-    //     next();
-    //     return
-    // } else {
-    //     db.save("CURRENT_ROUTER", to.path);
-    //     // next("/login");
-    //     next();
-    // }
-    next();
-});
-let oldTime = Date.now()
-let oldPath = ''
-router.afterEach((to, from, next) => {
-    let time = Math.floor((Date.now() - oldTime) / 1000);
-    if (oldPath && oldTime) {
-        trackIns.routerTrack(from.path, time)
+    if (token.length && user) {
+        // 非菜单点击时路由变化的菜单高亮
+        await updateMenuOpenKeys(to);
+        // 403校验
+        if (to?.meta?.auth) {
+            const isPermission = await checkRoutePermission(to);
+            if (isPermission) {
+                next();
+                return;
+            } else {
+                next("/403");
+                return;
+            }
+        }
+        next();
+        return
+    } else {
+        db.save("CURRENT_ROUTER", to.path);
+        // next("/login");
+        next();
     }
-    oldTime = Date.now();
-    oldPath = from.path;
-    next();
-})
-
+});
 export default router
