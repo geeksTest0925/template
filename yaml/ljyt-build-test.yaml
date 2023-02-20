@@ -1,0 +1,47 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewBuild
+  creationTimestamp: null
+  labels:
+    build: ljyt-portal-test
+  name: ljyt-portal-test
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    pushSecret:
+      name: fintechzpk
+    to:
+      kind: DockerImage
+      name: zpk.abc:443/jk-docker-dev/ljyt/ljyt-portal-test:1.p.BUILD_ID
+  postCommit: { }
+  resources:
+    limits:
+      cpu: '1'
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+  runPolicy: Serial
+  source:
+    binary: { }
+    type: Binary
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: nginx:1.12
+        namespace: openshift
+    type: Source
+  successfulBuildsHistoryLimit: 5
+  triggers:
+    - github:
+        secret: 5yCaXSv0zH_SdwZ9N4s-
+      type: GitHub
+    - generic:
+        secret: 7Iy_lcStjZPCZ5o4S-WK
+      type: Generic
+status:
+  lastVersion: 0

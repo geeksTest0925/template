@@ -1,0 +1,44 @@
+stages:
+  - build
+  - deploy
+
+# 设置缓存
+cache: &global_cache
+  key: digital-stage
+  paths: 
+    - node_modules/
+    - dist/
+
+# 安装依赖 before_script 会在每个 stages 执行之前运行
+before_script:
+  - npm install
+
+# 编译 这里对应上方 stages 
+build:
+  stage: build
+  only:
+    # 只有在master分支才会执行
+    - stage
+  script: # script 为要执行的命令，可以多条按顺序执行
+    - echo "build start"
+    - npm run build:stage
+  tags:
+    - gitlab-runner
+
+docker-deploy:
+  stage: deploy
+  # 执行Job内容
+  script: 
+    - echo 'deploy start'
+    # 删除已经在运行的容器
+    - docker ps -a|grep gitlab-runner && docker stop gitlab-runner && docker rm gitlab-runner || echo "not exist"
+    - docker images |grep gitlab-runner && docker rmi -f gitlab-runner || echo "not exist"
+    
+    # 通过Dockerfile生成pactera_pflife_ui镜像
+    - docker build -t gitlab-runner .
+
+    # 通过镜像启动容器
+    - docker run -d -p 8030:80 --name gitlab-runner gitlab-runner
+  tags:
+    # 执行Job的服务器
+    - gitlab-runner
