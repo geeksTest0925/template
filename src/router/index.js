@@ -77,7 +77,6 @@ const router = createRouter({
 
 // 导航守卫，渲染动态路由
 router.beforeEach(async (to, from, next) => {
-    console.log(to.path)
     if (whiteList.indexOf(to.path) !== -1) {
         next();
         return

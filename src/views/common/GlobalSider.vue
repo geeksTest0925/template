@@ -1,5 +1,9 @@
 <template>
-    <div class="a-logo">后台管理</div>
+    <div class="a-logo">
+        <router-link :to="{ name: 'HOME_DETAIL' }">
+            后台管理
+        </router-link>
+    </div>
     <div style="width: 200px" class="side-menu-container">
         <a-menu mode="inline" theme="dark" :openKeys="openKeys" :selectedKeys="selectedKeys" @openChange="openChange" @select="handleSelect">
             <template v-for="(menu, index) in userMenu" :key="index">
@@ -35,7 +39,7 @@ export default defineComponent({
         watch(
             () => route.meta,
             (val) => {
-                console.log(val, 'routename')
+                // console.log(val, 'routename')
             },
             {
                 immediate: true,
