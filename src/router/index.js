@@ -25,6 +25,25 @@ const constRouter = [
         ]
     },
     {
+        path: "/my",
+        name: "MY_INFO",
+        component: PortalView,
+        meta: {
+            level: 1
+        },
+        redirect: '/my/index',
+        children: [
+            {
+                path: "index",
+                name: "MY_INFO_DETAIL",
+                meta: {
+                    level: 2,
+                },
+                component: require('@/views/my/index.vue').default
+            }
+        ]
+    },
+    {
         path: "/login",
         name: "LOGIN",
         meta: {

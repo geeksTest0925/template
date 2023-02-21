@@ -12,10 +12,12 @@ export default {
         tenantId: db.get('TENANTID'),
         userInfo: db.get('USER_INFO'),
         loginLoading: false,
+        account: db.get('ACCOUNT'),
     },
     actions: {
         loginByNameAndPwd ({ commit }, { mobile, verifyCode }) {
             return new Promise((resolve, reject) => {
+                console.log(mobile, verifyCode);
                 fetchLogin({ mobile, verifyCode }).then(res => {
                     resolve();
                     const reg = /(\d{3})\d{4}(\d{4})/
@@ -49,6 +51,7 @@ export default {
                     commit('SET_REFRESH_TOKEN', '');
                     commit('SET_TENANT_ID', '');
                     db.remove('USER_INFO');
+                    commit('SET_ACCOUNT', '')
                     // commit('SET_MENU', []);
                     // commit('SET_ROLES', []);
                     // commit('SET_TAG_LIST', []);
@@ -74,6 +77,10 @@ export default {
             state.tenantId = val;
             db.save('TENANTID', val);
         },
+        SET_ACCOUNT: (state, val) => {
+            state.account = val;
+            db.save('ACCOUNT', val);
+          },
         SET_USER_INFO: (state, val) => {
             if (validatenull(val.avatar)) {
                 val.avatar = "/img/avatar.png";

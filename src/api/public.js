@@ -15,7 +15,7 @@ export const logout = () => {
 
 // 验证码
 export const fetchCode = (data) => {
-    return http.post(base_api + '/cms/cms-auth/oauth/message-code', data)
+    return request.post(base_api + '/cms/cms-auth/oauth/message-code', data)
 }
 
 // 获取当前用户信息

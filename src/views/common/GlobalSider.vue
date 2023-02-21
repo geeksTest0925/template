@@ -19,10 +19,9 @@
 import { defineComponent, reactive, toRefs, watch } from 'vue'
 import SubMenu from '@/components/subMenu'
 import { Icon } from '@/components/icon'
-import { getRoutesData } from '@/api/auth'
 import store from '@/store'
 import { mockMenuDatas } from '@/mock/side-menu'
-// import { getRoleMenuData, defaultMenu, defaultMenuTail } from "@/auth/index";
+import { getRoleMenuData, defaultMenu, defaultMenuTail } from "@/auth/index";
 import { isUndefined } from '@/utils/validate'
 import { useRoute } from 'vue-router'
 export default defineComponent({
@@ -46,8 +45,7 @@ export default defineComponent({
         const state = reactive({
             openKeys: store?.state?.auth?.currentMenu?.openKeys || [],
             selectedKeys: store?.state?.auth?.currentMenu?.selectedKeys || [],
-            userMenu:
-                /* store?.state?.auth?.userMenu || [...defaultMenu, ...defaultMenuTail] */ mockMenuDatas,
+            userMenu: store?.state?.auth?.userMenu || [...defaultMenu, ...defaultMenuTail],
         })
 
         watch(

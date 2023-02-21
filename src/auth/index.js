@@ -294,6 +294,7 @@ export class AuthDirective {
             const userButtons = store.state.auth.userButtons || (await getRoleButtonData());
             const authArr = handleBindingValue(code);
             const result = _.intersection(authArr, userButtons);
+            console.log(result,'result..............................');
             // console.log("result", result, userButtons);
             // 或:传入权限只要有一个在权限列表就展示
             if (type === AUTH_DIRECTIVE_TYPE_MAP["OR"] && result?.length === 0 && code) {
