@@ -8,6 +8,7 @@ export default {
         userRoleRouteName: db.get("USER_ROLE_ROUTE_NAME"),
         userAllMenuID: db.get("USER_ALL_MENU_ID"),
         currentMenu: db.get("CURRENT_MENU"),
+        mockMenuDatas: db.get("MOCK_MENU_DATAS")
     },
     actions: {
         setMenuData ({ commit }, data) {
@@ -25,6 +26,9 @@ export default {
         setCurrentMenu ({ commit }, data) {
             commit("SET_CURRENT_MENU", data);
         },
+        setMockMenuDatas ({ commit }, data) {
+            commit("SET_MOCK_MENU_DATAS", data)
+        }
     },
     mutations: {
         SET_USER_MENUS: (state, val) => {
@@ -47,5 +51,9 @@ export default {
             state.currentMenu = val;
             db.save("CURRENT_MENU", val);
         },
+        SET_MOCK_MENU_DATAS: (state, val) => {
+            state.mockMenuDatas = val;
+            db.save("MOCK_MENU_DATAS", val);
+        }
     },
 };

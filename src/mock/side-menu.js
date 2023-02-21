@@ -2,15 +2,13 @@
 export const mockMenuDatas = [
     {
         name: "首页",
-        path: "/home",
         icon: "InboxOutlined",
         hidden: false,
         id: 1,
-        alias: 'HOME_DETAIL'
+        alias: 'HOME_DETAIL',
     },
     {
         name: "我的信息",
-        path: "/my",
         icon: "InboxOutlined",
         hidden: false,
         id: 2,

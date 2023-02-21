@@ -4,7 +4,7 @@ import db from "utils/sessionStorage";
 import { isNoPermission, ROLES } from "@/utils/permission";
 import { checkRoutePermission, updateMenuOpenKeys } from "@/auth/index";
 import { trackIns } from '../track'
-
+import { mockMenuDatas } from '../mock/side-menu'
 const constRouter = [
     {
         path: "/",
@@ -63,9 +63,9 @@ const constRouter = [
     }
 ]
 
-let userRouter = db.get("USER_ROUTER");
+let userRouter = db.get("MOCK_MENU_DATAS");
 if (!userRouter || userRouter === '') {
-    db.save("USER_ROUTER", constRouter);
+    db.save("MOCK_MENU_DATAS", mockMenuDatas);
 }
 
 const whiteList = ["/login"];
@@ -84,9 +84,10 @@ router.beforeEach(async (to, from, next) => {
     }
     let token = db.get("USER_TOKEN");
     let user = db.get("USER_INFO");
+    let flag = false; // 是否从后端获取菜单数据
     if (token.length && user) {
         // 非菜单点击时路由变化的菜单高亮
-        await updateMenuOpenKeys(to);
+        await updateMenuOpenKeys(to, flag);
         // 403校验
         if (to?.meta?.auth) {
             const isPermission = await checkRoutePermission(to);
@@ -101,8 +102,7 @@ router.beforeEach(async (to, from, next) => {
         next();
         return
     } else {
-        db.save("CURRENT_ROUTER", to.path);
-        // next("/login");
+        await updateMenuOpenKeys(to, flag);
         next();
     }
 });

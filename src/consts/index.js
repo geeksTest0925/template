@@ -9,6 +9,7 @@ export const MAX_FILE_SIZE_TIP = '请上传5000M以内的文件'
 export const TIME_OUT = 24 * 60 * 60 * 1000
 
 export const IS_DECODE = process.env.VUE_APP_SOURCE_MODE === 'decode'
+export const IS_SERVE = process.env.VUE_APP_SOURCE_MENU_MODE === 'serve'
 
 export const AUTH_DIRECTIVE_TYPE_MAP = {
     OR: "OR", // 或

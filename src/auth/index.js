@@ -6,6 +6,7 @@ import { isUndefined } from "@/utils/validate";
 import _ from "lodash";
 import db from 'utils/sessionStorage';
 import router from "@/router";
+import { IS_SERVE } from "@/consts/index"
 
 export const defaultMenu = [
     {
@@ -38,9 +39,8 @@ export const authInit = async () => {
  */
 export const updateMenuOpenKeys = async to => {
     const name = to?.meta?.activeName || to.name
-    // const { name } = to || {};
-    const allMenuID = store?.state?.auth?.userAllMenuID || (await getRoleMenuData());
-    const userMenu = store?.state?.auth?.userMenu || (await getRoleMenuData());
+    const allMenuID = IS_SERVE ? store?.state?.auth?.userAllMenuID || (await getRoleMenuData()) : store?.state?.auth?.mockMenuDatas;
+    const userMenu = IS_SERVE ? store?.state?.auth?.userMenu || (await getRoleMenuData()) : getOneArr(store?.state?.auth?.mockMenuDatas);
     let selectedKeys = [];
     let openKeys = [];
     // 当前选择的菜单信息
@@ -49,7 +49,6 @@ export const updateMenuOpenKeys = async to => {
         selectedKeys = !isUndefined(currentMenu?.id) ? [currentMenu?.id] : [];
         openKeys = treeFindAllParent(userMenu, data => data?.id == currentMenu?.id);
     }
-    //  console.log('openKeys, selectedKeys',openKeys, selectedKeys)
     store.dispatch("auth/setCurrentMenu", { openKeys, selectedKeys });
 };
 
@@ -61,7 +60,6 @@ export const checkRoutePermission = async to => {
     const userRoleRouteName = store?.state?.auth?.userRoleRouteName || (await getRoleMenuNameData());
     const { name } = to || {};
     const flag = _.includes(userRoleRouteName, name);
-    // console.log(userRoleRouteName,name,flag)
     return flag;
 };
 

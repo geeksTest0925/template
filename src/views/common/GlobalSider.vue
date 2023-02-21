@@ -24,13 +24,13 @@ import { mockMenuDatas } from '@/mock/side-menu'
 import { getRoleMenuData, defaultMenu, defaultMenuTail } from "@/auth/index";
 import { isUndefined } from '@/utils/validate'
 import { useRoute } from 'vue-router'
+import { IS_SERVE } from '@/consts/index'
 export default defineComponent({
     components: {
         SubMenu,
         Icon,
     },
-
-    setup() {
+    setup(props) {
         const route = useRoute()
         watch(
             () => route.meta,
@@ -43,9 +43,9 @@ export default defineComponent({
         )
 
         const state = reactive({
-            openKeys: store?.state?.auth?.currentMenu?.openKeys || [],
-            selectedKeys: store?.state?.auth?.currentMenu?.selectedKeys || [],
-            userMenu: store?.state?.auth?.userMenu || [...defaultMenu, ...defaultMenuTail],
+            openKeys: store?.state?.auth?.currentMenu?.openKeys || [1],
+            selectedKeys: store?.state?.auth?.currentMenu?.selectedKeys || [1],
+            userMenu: IS_SERVE ? (store?.state?.auth?.userMenu || [...defaultMenu, ...defaultMenuTail]) : mockMenuDatas,
         })
 
         watch(
