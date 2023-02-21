@@ -242,7 +242,6 @@ const handleSubmit = () => {
                 border: none;
             }
         }
-        // background: rgba(33, 35, 50, 1);
         :deep(.ant-form-item-control-input-content) {
             position: relative;
             display: flex;
@@ -272,7 +271,6 @@ const handleSubmit = () => {
         }
         :deep(.ant-input) {
             width: 300px;
-            // height: 80px;
             height: 50px;
             background: rgba(245, 247, 250, 1) !important;
             border-radius: 4px;

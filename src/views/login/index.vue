@@ -1,9 +1,9 @@
 <template>
-    <AutchCodeLogin :submitLogin="handleSubmit" :disabled="true" :logoUrl="logoUrl"></AutchCodeLogin>
+    <AuthCodeLogin :submitLogin="handleSubmit" :disabled="true" :logoUrl="logoUrl"></AuthCodeLogin>
 </template>
 
 <script setup>
-import AutchCodeLogin from "@/components/authCodeLogin";
+import AuthCodeLogin from "@/components/authCodeLogin";
 import { authInit } from "@/auth";
 import { message } from "ant-design-vue";
 import store from "@/store";

@@ -279,7 +279,7 @@ export class AuthDirective {
     async init () {
         let token = db.get("USER_TOKEN");
         let user = db.get("USER_INFO");
-        if (token.length && user) {
+        if (token.length && user && IS_SERVE) {
             await getRoleButtonData();
         }
     }
@@ -291,6 +291,7 @@ export class AuthDirective {
             }
             let display = "block";
             const userButtons = store.state.auth.userButtons || (await getRoleButtonData());
+            console.log(userButtons,'userButtons...');
             const authArr = handleBindingValue(code);
             const result = _.intersection(authArr, userButtons);
             console.log(result,'result..............................');
