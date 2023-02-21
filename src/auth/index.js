@@ -190,6 +190,7 @@ const getRoleMenuNameData = async () => {
         if (code === 200) {
             userMenu = Array.isArray(data) && data.length > 0 ? data : null;
         }
+        console.log(userMenu,'userMenu');
         // userMenu = userMenu || (process.env.NODE_ENV === "development" ? mockMenuDatas : defaultMenu);
         const userRoleRouteName = getValueArr(userMenu, "alias");
         store.dispatch("auth/setRoleRouteName", userRoleRouteName);

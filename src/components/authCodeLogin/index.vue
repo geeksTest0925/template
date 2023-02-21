@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <div class="left-box">
+        <div class="left-box" :style="{background: `url(${logoUrl}) no-repeat center center`, backgroundSize: 'cover'}">
             <div class="logo"></div>
         </div>
         <div class="right-box">
@@ -26,17 +26,11 @@
 </template>
 
 <script setup>
-import {
-  reactive,
-  computed,
-  ref,
-  defineProps,
-  watch
-} from "vue";
+import { reactive, computed, ref, defineProps, watch } from "vue";
 import { Form, message } from "ant-design-vue";
 import store from "@/store";
 import { resultFactory } from "./utils";
-import { mobileCode, authMobileCode } from './request'
+import { mobileCode } from './request';
 const keyLength = 2;
 const defaultCountdownNumber = 60;
 const props = defineProps({
@@ -76,13 +70,13 @@ const props = defineProps({
     },
     logoUrl: {
         type: String,
-        default: './images/img_logo.png'
+        default: require('./images/img_logo.png')
     }
 })
 const useForm = Form.useForm;
 const formState = reactive({
-      mobile: "",
-      verifyCode: "",
+    mobile: "",
+    verifyCode: "",
 });
 const countdown = ref(props.countdownNumber);
 const forbidden = ref(props.disabled);
@@ -124,18 +118,18 @@ const validatorCode = (rule, value, callback) => {
 const rulesRef = reactive({
     mobile: [
         {
-          required: true,
-          message: "手机号错误",
-          trigger: "change",
-          validator: validatorUserName,
+            required: true,
+            message: "手机号错误",
+            trigger: "change",
+            validator: validatorUserName,
         },
     ],
     verifyCode: [
         {
-          required: true,
-          message: "验证码错误",
-          trigger: "change",
-          validator: validatorCode,
+            required: true,
+            message: "验证码错误",
+            trigger: "change",
+            validator: validatorCode,
         },
     ],
 });
@@ -157,6 +151,8 @@ const getVerification = async () => {
                     clearInterval(clear.value)
                 }
             }, 1000)
+        }).catch((error) => {
+            console.log(error);
         })
     } else {
         message.error("请输入手机号");
@@ -189,8 +185,8 @@ const handleSubmit = () => {
     .left-box {
         width: 40%;
         height: 100vh;
-        background: url('./images/img_logo.png') no-repeat;
-        background-size: cover;
+        // background: url('./images/img_logo.png') no-repeat;
+        // background-size: cover;
         .logo {
             width: 100%;
             height: 100%;
