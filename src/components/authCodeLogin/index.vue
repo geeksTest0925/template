@@ -30,7 +30,6 @@ import {
   reactive,
   computed,
   ref,
-  nextTick,
   defineProps,
   watch
 } from "vue";

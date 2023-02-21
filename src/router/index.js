@@ -1,10 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import PortalView from '@/views/common/PortalView'
 import db from "utils/sessionStorage";
-import { isNoPermission, ROLES } from "@/utils/permission";
 import { checkRoutePermission, updateMenuOpenKeys } from "@/auth/index";
-import { trackIns } from '../track'
-import { mockMenuDatas } from '../mock/side-menu'
+import { mockMenuDatas } from '../mock/side-menu';
+import store from "@/store";
 const constRouter = [
     {
         path: "/",
@@ -65,7 +64,7 @@ const constRouter = [
 
 let userRouter = db.get("MOCK_MENU_DATAS");
 if (!userRouter || userRouter === '') {
-    db.save("MOCK_MENU_DATAS", mockMenuDatas);
+    store.dispatch('auth/setMockMenuDatas', mockMenuDatas)
 }
 
 const whiteList = ["/login"];
