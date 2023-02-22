@@ -29,7 +29,7 @@
 import { reactive, computed, ref, defineProps, watch } from "vue";
 import { Form, message } from "ant-design-vue";
 import store from "@/store";
-import { resultFactory } from "./utils";
+import { resultFactory, isUndefined } from "./utils";
 import { mobileCode } from './request';
 const keyLength = 2;
 const defaultCountdownNumber = 60;

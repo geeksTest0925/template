@@ -58,14 +58,6 @@ HTTP_REQUEST.interceptors.response.use(
                     break
                 case 401:
                     showReloadModal()
-                // return
-                // notification.error({
-                //   message: '系统提示',
-                //   description:
-                //     '当前账户无此权限，请联系系统管理员获取。',
-                //   duration: 4
-                // })
-                // break
                 case 403:
                     notification.warn({
                         message: '系统提示',

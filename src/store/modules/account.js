@@ -1,7 +1,5 @@
-import { message } from 'ant-design-vue';
 import db from 'utils/sessionStorage';
 import { logout, fetchCurrentUserInfo, fetchLogin } from '@/api/public.js';
-import md5 from 'js-md5'
 import { validatenull } from '@/utils/validate'
 
 export default {
@@ -17,7 +15,6 @@ export default {
     actions: {
         loginByNameAndPwd ({ commit }, { mobile, verifyCode }) {
             return new Promise((resolve, reject) => {
-                console.log(mobile, verifyCode);
                 fetchLogin({ mobile, verifyCode }).then(res => {
                     resolve();
                     const reg = /(\d{3})\d{4}(\d{4})/
@@ -34,7 +31,6 @@ export default {
             })
         },
         async getUserInfo ({ commit }) {
-            console.log('dispatch, getUserInfo')
             let res = await fetchCurrentUserInfo()
             if (res && res.success) {
                 // 用户信息缺少nick_name
@@ -52,11 +48,6 @@ export default {
                     commit('SET_TENANT_ID', '');
                     db.remove('USER_INFO');
                     commit('SET_ACCOUNT', '')
-                    // commit('SET_MENU', []);
-                    // commit('SET_ROLES', []);
-                    // commit('SET_TAG_LIST', []);
-                    // commit('DEL_ALL_TAG');
-                    // commit('CLEAR_LOCK');
                     resolve();
                 }).catch(error => {
                     reject(error)
