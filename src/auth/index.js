@@ -1,7 +1,6 @@
 import store from "@/store";
 import { getButtonCodeOfCurRole, getRoutesData, getRoleMenuInfo } from "@/api/auth";
 import { AUTH_DIRECTIVE_TYPE_MAP } from "@/consts/index";
-import { mockMenuDatas } from "@/mock/side-menu";
 import { isUndefined } from "@/utils/validate";
 import _ from "lodash";
 import db from 'utils/sessionStorage';
@@ -15,14 +14,6 @@ export const defaultMenu = [
         id: 1
     },
 ];
-
-export const defaultMenuTail = [
-    {
-        name: "我的信息",
-        alias: "MY_INFO_DETAIL",
-        id: 2
-    }
-]
 
 /**
  * 和权限相关需要更新数据的操作
@@ -190,7 +181,7 @@ const getRoleMenuNameData = async () => {
         if (code === 200) {
             userMenu = Array.isArray(data) && data.length > 0 ? data : null;
         }
-        console.log(userMenu,'userMenu');
+        console.log(userMenu, 'userMenu');
         // userMenu = userMenu || (process.env.NODE_ENV === "development" ? mockMenuDatas : defaultMenu);
         const userRoleRouteName = getValueArr(userMenu, "alias");
         store.dispatch("auth/setRoleRouteName", userRoleRouteName);
@@ -212,7 +203,7 @@ export const getRoleMenuData = async () => {
             userMenu = Array.isArray(data) && data.length > 0 ? data : null;
         }
         // userMenu = userMenu || (process.env.NODE_ENV === "development" ? mockMenuDatas : defaultMenu);
-        userMenu = matchRoute([...defaultMenu, ...userMenu, ...defaultMenuTail]);
+        userMenu = matchRoute([...defaultMenu, ...userMenu]);
         const allMenuID = getOneArr(userMenu);
         store.dispatch("auth/setMenuData", userMenu);
         store.dispatch("auth/setAllMenuID", allMenuID);
@@ -265,7 +256,6 @@ export class AuthDirective {
         const anyCreated = this.anyCreated.bind(this);
         app.directive("auth-and", {
             created (el, binding, vnode) {
-                console.log(el, binding, vnode,'el, binding, vnode');
                 andCreated(el, binding, vnode);
             },
         });
@@ -291,10 +281,9 @@ export class AuthDirective {
             }
             let display = "block";
             const userButtons = store.state.auth.userButtons || (await getRoleButtonData());
-            console.log(userButtons,'userButtons...');
+            console.log(userButtons, 'userButtons...');
             const authArr = handleBindingValue(code);
             const result = _.intersection(authArr, userButtons);
-            console.log(result,'result..............................');
             // console.log("result", result, userButtons);
             // 或:传入权限只要有一个在权限列表就展示
             if (type === AUTH_DIRECTIVE_TYPE_MAP["OR"] && result?.length === 0 && code) {

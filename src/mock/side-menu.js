@@ -6,10 +6,4 @@ export const mockMenuDatas = [
         icon: "InboxOutlined",
         alias: 'HOME_DETAIL'
     },
-    {
-        id: 2,
-        name: "我的信息",
-        icon: "InboxOutlined",
-        alias: 'MY_INFO_DETAIL'
-    },
 ];

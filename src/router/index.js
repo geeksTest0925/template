@@ -24,25 +24,6 @@ const constRouter = [
         ]
     },
     {
-        path: "/my",
-        name: "MY_INFO",
-        component: PortalView,
-        meta: {
-            level: 1
-        },
-        redirect: '/my/index',
-        children: [
-            {
-                path: "index",
-                name: "MY_INFO_DETAIL",
-                meta: {
-                    level: 2,
-                },
-                component: require('@/views/my/index.vue').default
-            }
-        ]
-    },
-    {
         path: "/login",
         name: "LOGIN",
         meta: {
@@ -82,10 +63,9 @@ router.beforeEach(async (to, from, next) => {
     }
     let token = db.get("USER_TOKEN");
     let user = db.get("USER_INFO");
-    let flag = false; // 是否从后端获取菜单数据
     if (token.length && user) {
         // 非菜单点击时路由变化的菜单高亮
-        await updateMenuOpenKeys(to, flag);
+        await updateMenuOpenKeys(to);
         // 403校验
         if (to?.meta?.auth) {
             const isPermission = await checkRoutePermission(to);
@@ -100,7 +80,7 @@ router.beforeEach(async (to, from, next) => {
         next();
         return
     } else {
-        await updateMenuOpenKeys(to, flag);
+        await updateMenuOpenKeys(to);
         next();
     }
 });

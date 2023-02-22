@@ -20,12 +20,12 @@
 </template>
 
 <script setup>
-import { defineComponent, reactive, toRefs, watch } from 'vue'
+import { reactive, watch } from 'vue'
 import SubMenu from '@/components/subMenu'
 import { Icon } from '@/components/icon'
 import store from '@/store'
 import { mockMenuDatas } from '@/mock/side-menu'
-import { getRoleMenuData, defaultMenu, defaultMenuTail } from "@/auth/index";
+import { getRoleMenuData, defaultMenu } from "@/auth/index";
 import { isUndefined } from '@/utils/validate'
 import { useRoute } from 'vue-router'
 import { IS_SERVE } from '@/consts/index'
@@ -43,7 +43,7 @@ watch(
 const state = reactive({
     openKeys: store?.state?.auth?.currentMenu?.openKeys || [1],
     selectedKeys: store?.state?.auth?.currentMenu?.selectedKeys || [1],
-    userMenu: IS_SERVE ? (store?.state?.auth?.userMenu || [...defaultMenu, ...defaultMenuTail]) : mockMenuDatas,
+    userMenu: IS_SERVE ? (store?.state?.auth?.userMenu || [...defaultMenu]) : mockMenuDatas,
 })
 
 watch(
@@ -101,7 +101,6 @@ const handleMenuItem = (key) => {
         selectedKeys: state.selectedKeys,
     })
 }
-
 </script>
 
 <style lang="less" scoped>

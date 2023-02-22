@@ -26,13 +26,12 @@
 </template>
 
 <script setup>
-import { reactive, computed, ref, defineProps, watch } from "vue";
-import { Form, message } from "ant-design-vue";
-import store from "@/store";
-import { resultFactory, isUndefined } from "./utils";
-import { mobileCode } from './request';
-const keyLength = 2;
-const defaultCountdownNumber = 60;
+import { reactive, computed, ref, defineProps, watch } from "vue"
+import { Form, message } from "ant-design-vue"
+import store from "@/store"
+import { resultFactory, isUndefined } from "./utils"
+import { mobileCode } from './request'
+const defaultCountdownNumber = 60
 const props = defineProps({
     loginButtonTitle: {
         type: String,
@@ -42,11 +41,6 @@ const props = defineProps({
     countdownNumber: {
         type: Number,
         default: 60
-    },
-    // 登录按钮在无值的时候是否需要置灰
-    disabled: {
-        type: Boolean,
-        default: false,
     },
     // 登录回调
     submitLogin: {
@@ -73,14 +67,16 @@ const props = defineProps({
         default: require('./images/img_logo.png')
     }
 })
-const useForm = Form.useForm;
+const useForm = Form.useForm
 const formState = reactive({
     mobile: "",
     verifyCode: "",
-});
-const countdown = ref(props.countdownNumber);
-const forbidden = ref(props.disabled);
-const clear = ref(null);
+})
+const loginDisabled = computed(() => {
+    return !(formState.mobile && formState.verifyCode)
+})
+const countdown = ref(props.countdownNumber)
+const clear = ref(null)
 const loginLoading = computed(() => {
     return store.state.account.loginLoading
 })
@@ -90,31 +86,26 @@ const codeButtonDisabled = computed(() => {
 const codeButtonText = computed(() => {
     return codeButtonDisabled.value ? `${countdown.value}s` : '获取验证码'
 })
-watch(() => formState, val => {
-    const values = Object.values(val) || [];
-    const filters = values.filter(item => !isUndefined(item));
-    forbidden.value = filters.length !== keyLength;
-})
 const validatorUserName = (rule, value, callback) => {
     if (isNaN(Number(value))) {
-        return Promise.reject("只能输入数字");
+        return Promise.reject("只能输入数字")
     } else if (value.length < 11) {
-        return Promise.reject("手机号错误");
+        return Promise.reject("手机号错误")
     } else {
-        return Promise.resolve();
+        return Promise.resolve()
     }
-};
+}
 const validatorCode = (rule, value, callback) => {
     if (isNaN(Number(value))) {
-        return Promise.reject("只能输入数字");
+        return Promise.reject("只能输入数字")
     } else if (value === "") {
-        return Promise.reject("请输入验证码");
+        return Promise.reject("请输入验证码")
     } else if (value.length !== 4) {
-        return Promise.reject("验证码错误");
+        return Promise.reject("验证码错误")
     } else {
-        return Promise.resolve();
+        return Promise.resolve()
     }
-};
+}
 const rulesRef = reactive({
     mobile: [
         {
@@ -132,19 +123,19 @@ const rulesRef = reactive({
             validator: validatorCode,
         },
     ],
-});
-const { validate, validateInfos } = useForm(formState, rulesRef);
+})
+const { validate, validateInfos } = useForm(formState, rulesRef)
 const getVerification = async () => {
     if (formState.mobile) {
-        countdown.vaue = defaultCountdownNumber;
-        const request = props.getVerificationCodeRequest && props.getVerificationCodeRequest(formState) || mobileCode({ mobile: formState.mobile });
-        const result = await request;
+        countdown.vaue = defaultCountdownNumber
+        const request = props.getVerificationCodeRequest && props.getVerificationCodeRequest(formState) || mobileCode({ mobile: formState.mobile })
+        const result = await request
         resultFactory({ result, successMsg: '验证码已发送' }).then(res => {
-            props.getVerificationCode && props.getVerificationCode(res);
+            props.getVerificationCode && props.getVerificationCode(res)
             countdown.value -= 1
             clearInterval(clear.value)
             clear.value = null
-            clear.value = setInterval((_) => {
+            clear.value = setInterval(() => {
                 if (countdown.value > 0) {
                     countdown.value -= 1
                 } else {
@@ -152,25 +143,22 @@ const getVerification = async () => {
                 }
             }, 1000)
         }).catch((error) => {
-            console.log(error);
+            console.log(error)
         })
     } else {
-        message.error("请输入手机号");
+        message.error("请输入手机号")
     }
-};
-const loginDisabled = computed(() => {
-    return !(formState.mobile && formState.verifyCode);
-});
+}
 const handleSubmit = () => {
       validate()
         .then(() => {
             store.commit("account/SET_LOGIN_LOADING", true)
-            props.submitLogin && props.submitLogin(formState);
+            props.submitLogin && props.submitLogin(formState)
         })
         .catch((err) => {
-            message.error(err.errorFields[0].errors[0]);
-    });
-};
+            message.error(err.errorFields[0].errors[0])
+    })
+}
 </script>
 
 <style lang="less" scoped>

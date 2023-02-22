@@ -21,7 +21,6 @@ import GlobalFooter from '../common/GlobalFooter'
 import GlobalSignOut from './GlobalSignOut'
 import { mapMutations, mapState } from 'vuex'
 import { UPLOAD_STATUS } from '../../consts/index'
-import { message } from 'ant-design-vue'
 
 let menuData = []
 
@@ -56,9 +55,6 @@ export default {
         },
     },
     methods: {
-        handleClick() {
-            message.warning('文件上传中')
-        },
         ...mapMutations({
             setTheme: 'setting/setTheme',
             setLayout: 'setting/setLayout',
