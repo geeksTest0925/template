@@ -12,12 +12,9 @@ module.exports = {
     assetsDir: 'static',
     lintOnSave: false, //IS_PROD ? false : 'error' 关闭eslint
     productionSourceMap: false,
-    transpileDependencies: ['sm-crypto'],
+    transpileDependencies: [ 'sm-crypto'],
     devServer: {
         port: 1800,
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        },
         proxy: {
             
         }
@@ -38,71 +35,70 @@ module.exports = {
             }
         }
     },
-    // configureWebpack: config => {
-    //     if(IS_PROD){
-    //         const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
-    //         const plugins = [];
-    //         config.optimization.minimizer.map(arg => {
-    //             const option = arg.options.terserOptions.compress;
-    //             option.drop_console = false;
-    //             return arg;
-    //         })
-    
-    //         config.plugins = [...config.plugins, ...plugins];
-    
-    //         config.optimization = {
-    //             splitChunks: {
-    //                 chunks: 'all',
-    //                 minSize: 30000,
-    //                 maxSize: 0,
-    //                 minChunks: 1,
-    //                 maxAsyncRequests: 5,
-    //                 maxInitialRequests: 3,
-    //                 automaticNameDelimiter: '~',
-    //                 name: false,
-    //                 cacheGroups: {
-    //                     corejs: {
-    //                         name: 'corejs',
-    //                         test: /[\\/]node_modules[\\/]core-js[\\/]/,
-    //                         priority: 1,
-    //                         reuseExistingChunk: true
-    //                     },
-    //                     antd: {
-    //                         name: 'antd',
-    //                         test: /[\\/]node_modules[\\/]ant-design-vue[\\/]/,
-    //                         priority: 2,
-    //                         reuseExistingChunk: true
-    //                     },
-    //                     vendors: {
-    //                         test: /[\\/]node_modules[\\/]/,
-    //                         priority: -10
-    //                     },
-    //                     default: {
-    //                         minChunks: 2,
-    //                         priority: -20,
-    //                         reuseExistingChunk: true
-    //                     }
-    //                 }
-    //             }
-    //         }
-    
-    
-    //     }
-    //     console.log('config app name --->', APP_NAME)
-    //     config.output = {
-    //         // 微应用的包名，这里与主应用中注册的微应用名称一致
-    //         library: `${APP_NAME}-[name]`,
-    //         // 将你的 library 暴露为所有的模块定义下都可运行的方式
-    //         libraryTarget: "umd",
-    //         // 按需加载相关，设置为 webpackJsonp_微应用名称 即可
-    //         jsonpFunction: `webpackJsonp_${APP_NAME}`
-    //     }
-    //     // config.externals = {
-    //     //     vue: 'Vue'
-    //     // }
-    // },
+    configureWebpack: config => {
+        if(IS_PROD){
+            const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
+            const plugins = [];
+            config.optimization.minimizer.map(arg => {
+                const option = arg.options.terserOptions.compress;
+                option.drop_console = false;
+                return arg;
+            })
+
+            config.plugins = [...config.plugins, ...plugins];
+
+            config.optimization = {
+                splitChunks: {
+                    chunks: 'all',
+                    minSize: 30000,
+                    maxSize: 0,
+                    minChunks: 1,
+                    maxAsyncRequests: 5,
+                    maxInitialRequests: 3,
+                    automaticNameDelimiter: '~',
+                    name: false,
+                    cacheGroups: {
+                        corejs: {
+                            name: 'corejs',
+                            test: /[\\/]node_modules[\\/]core-js[\\/]/,
+                            priority: 1,
+                            reuseExistingChunk: true
+                        },
+                        antd: {
+                            name: 'antd',
+                            test: /[\\/]node_modules[\\/]ant-design-vue[\\/]/,
+                            priority: 2,
+                            reuseExistingChunk: true
+                        },
+                        vendors: {
+                            test: /[\\/]node_modules[\\/]/,
+                            priority: -10
+                        },
+                        default: {
+                            minChunks: 2,
+                            priority: -20,
+                            reuseExistingChunk: true
+                        }
+                    }
+                }
+            }
+
+            config.output = {
+                // 微应用的包名，这里与主应用中注册的微应用名称一致
+                library: `${APP_NAME}-[name]`,
+                // 将你的 library 暴露为所有的模块定义下都可运行的方式
+                libraryTarget: "umd",
+                // 按需加载相关，设置为 webpackJsonp_微应用名称 即可
+                jsonpFunction: `webpackJsonp_${APP_NAME}`
+            }
+        }
+
+        // config.externals = {
+        //     vue: 'Vue'
+        // }
+    },
     chainWebpack: config => {
-        if (IS_PROD) {
+        if(IS_PROD){
             // if(process.env.VUE_APP_Analy){
             //     config.plugin('webpack-report').use(BundleAnalyzerPlugin, [
             //         {
@@ -114,7 +110,7 @@ module.exports = {
             //         }
             //     ]);
             // }
-
+            
             config.plugins.delete('preload');
             config.plugins.delete('prefetch');
         }
@@ -126,10 +122,10 @@ module.exports = {
             .set('@', resolve('src'))
             .set('~', resolve('src/components'))
             .set('utils', resolve('src/utils'))
-            .set('assets', resolve('src/property'));
+            .set('assets', resolve('src/assets'));
 
         config.resolve.symlinks(true);
-
+        
         return config;
     }
 }

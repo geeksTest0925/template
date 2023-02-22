@@ -16,7 +16,6 @@
     "core-js": "^3.8.3",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.7",
-    "h-ui": "0.0.4",
     "js-md5": "^0.7.3",
     "js-sha256": "^0.9.0",
     "lodash": "^4.17.21",
@@ -24,14 +23,13 @@
     "qs": "^6.10.3",
     "three": "0.135.0",
     "vue": "^3.2.33",
-    "vue-router": "^4.1.6",
-    "vuex": "^4.0.2",
-    "hereto-track-web": "git+https://git.hereto.cn:21443/hereto-fe/hereto-track-web.git#1.0.1"
+    "vue-router": "^4.0.11",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
+    "@vue/cli-plugin-babel": "4.5.0",
+    "@vue/cli-plugin-router": "^4.5.13",
+    "@vue/cli-service": "4.5.0",
     "@vue/compiler-sfc": "^3.2.6",
     "ant-design-vue": "^3.2.0",
     "babel-plugin-import": "^1.13.3",
