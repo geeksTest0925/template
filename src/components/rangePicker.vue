@@ -1,4 +1,5 @@
 <template>
+    <!-- 操作记录时间筛选 -->
     <a-range-picker :locale="locale" class="com-range-picker" v-bind="$attrs" showToday/>
 </template>
 <script setup>

@@ -1,4 +1,5 @@
 <template>
+    <!-- 返回列表组件 -->
     <div class="go-list-page-message" v-if="props.visible">
         <div class="top">
             <div class="icon">

@@ -2,15 +2,12 @@
     <span v-html="fmtEmptyString(text)"></span>
 </template>
 
-<script>
+<script setup>
 import { fmtEmptyString } from '@/utils/index'
-export default {
-    name: 'm-Text',
-    props: {
-        text: String,
-    },
-    methods: {
-        fmtEmptyString,
-    },
-}
+import { defineProps } from 'vue';
+const props = defineProps({
+    text: {
+        type: String
+    }
+})
 </script>

@@ -13,7 +13,6 @@
             <!-- <global-footer :copyright="copyright" /> -->
         </a-layout>
     </a-layout>
-    <div class="forbid-wrap" v-if="isUploading" @click="handleClick"></div>
 </template>
 
 <script>
@@ -21,7 +20,6 @@ import GlobalSider from '../common/GlobalSider'
 import GlobalFooter from '../common/GlobalFooter'
 import GlobalSignOut from './GlobalSignOut'
 import { mapMutations, mapState } from 'vuex'
-import db from '@/utils/sessionStorage'
 import { UPLOAD_STATUS } from '../../consts/index'
 import { message } from 'ant-design-vue'
 

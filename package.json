@@ -5,10 +5,10 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
-    "build": "cross-env OUTPUT_DIR=ljyt-manage vue-cli-service build",
-    "build:prod": "cross-env OUTPUT_DIR=ljyt-manage vue-cli-service build",
-    "build:stage": "cross-env OUTPUT_DIR=ljyt-manage vue-cli-service build --mode stage",
-    "deploy:stage": "npm run build:stage && cross-env NODE_ENV=stage OUTPUT_DIR=ljyt-manage node ../cmd-deploy-config",
+    "build": "cross-env OUTPUT_DIR=background-template vue-cli-service build",
+    "build:prod": "cross-env OUTPUT_DIR=background-template vue-cli-service build",
+    "build:stage": "cross-env OUTPUT_DIR=background-template vue-cli-service build --mode stage",
+    "deploy:stage": "npm run build:stage && cross-env NODE_ENV=stage OUTPUT_DIR=background-template node ../cmd-deploy-config",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

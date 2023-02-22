@@ -8,16 +8,8 @@
     </portal-layout>
 </template>
 
-<script>
+<script setup>
 import PortalLayout from './PortalLayout'
-
-export default {
-    name: 'PortalView',
-    components: { PortalLayout },
-    setup() {
-        
-    },
-}
 </script>
 
 <style lang="less" scoped>

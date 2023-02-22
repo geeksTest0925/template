@@ -12,38 +12,30 @@
     </a-dropdown>
 </template>
 
-<script>
+<script setup>
 import { DownOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
-import { mapGetters } from 'vuex'
-
-export default {
-    name: 'GlobalHeader',
-    components: { DownOutlined },
-    props: ['collapsed', 'menuData', 'menuName'],
-    computed: {
-        ...mapGetters(['userInfo']),
-    },
-    methods: {
-        toggleCollapse() {
-            this.$emit('toggleCollapse')
-        },
-        clickMenuItem({ key }) {
-            if (key === 'logout') {
-                this.onOk()
-            }
-        },
-        onOk() {
-            this.$store
-                .dispatch('account/LogOut')
-                .then(() => {
-                    this.$router.replace({ path: '/login' })
-                })
-                .catch((err) => {
-                    message.error(err.msg)
-                })
-        },
-    },
+import { computed } from 'vue'
+import store from '@/store'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const userInfo = computed(() => {
+    return store.getters.userInfo
+})
+const clickMenuItem = ({ key }) => {
+    if (key === 'logout') {
+        onOk()
+    }
+}
+const onOk = () => {
+    store
+        .dispatch('account/LogOut')
+        .then(() => {
+            router.replace({ path: '/login' })
+        })
+        .catch((err) => {
+            message.error(err.msg)
+        })
 }
 </script>
 

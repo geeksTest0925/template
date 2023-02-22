@@ -2,11 +2,8 @@
     <exception-page type="403" />
 </template>
 
-<script>
+<script setup>
 import ExceptionPage from '~/exception/ExceptionPage'
-export default {
-    components: { ExceptionPage },
-}
 </script>
 
 <style scoped></style>

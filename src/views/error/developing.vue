@@ -4,10 +4,8 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Developing',
-}
+<script setup>
+
 </script>
 
 <style lang="less" scoped>

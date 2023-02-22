@@ -15,9 +15,9 @@ module.exports = {
     transpileDependencies: [ 'sm-crypto'],
     devServer: {
         port: 1800,
-        proxy: {
-            
-        }
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        },
     },
     css: {
         loaderOptions: {

@@ -1,18 +1,18 @@
 <template>
-    <div class="m-nodata" :class="{ light: isLight }">
+    <div class="m-nodata" :class="{ light: props.isLight }">
         <img v-if="isLight" src="static/img/no-data-light.svg" alt="" />
         <img v-else src="static/img/no-data.svg" alt="" />
         <div class="m-nodata-text">暂无数据</div>
     </div>
 </template>
 
-<script>
-export default {
-    name: 'm-empty',
-    props: {
-        isLight: Boolean,
-    },
-}
+<script setup>
+import { defineProps } from 'vue';
+const props = defineProps({
+    isLight: {
+        type: Boolean
+    }
+})
 </script>
 
 <style lang="less" scoped>

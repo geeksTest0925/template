@@ -3,19 +3,19 @@
         <div class="copyright">
             Copyright
             <copyright-outlined />
-            <span v-html="copyright"></span>
+            <span v-html="props.copyright"></span>
         </div>
     </div>
 </template>
 
-<script>
+<script setup>
 import { CopyrightOutlined } from '@ant-design/icons-vue'
-
-export default {
-    name: 'GlobalFooter',
-    props: ['copyright'],
-    components: { CopyrightOutlined },
-}
+import { defineProps } from 'vue'
+const props = defineProps({
+    copyright: {
+        type: String
+    }
+})
 </script>
 
 <style lang="less" scoped>

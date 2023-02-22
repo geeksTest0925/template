@@ -1,4 +1,5 @@
 <template>
+    <!-- 面包屑组件 -->
     <div class="breadcrumb-container">
         <a-breadcrumb>
             <a-breadcrumb-item v-for="(item, index) in breadcrumb" :key="index" @click="change(item.path)">{{ item.name }}</a-breadcrumb-item>
