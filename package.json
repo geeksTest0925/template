@@ -37,7 +37,8 @@
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "mitt": "^3.0.0",
-    "moment": "^2.29.1"
+    "moment": "^2.29.1",
+    "js-cookie": "^3.0.1"
   },
   "eslintConfig": {
     "root": true,
