@@ -25,7 +25,7 @@ import SubMenu from '@/components/subMenu'
 import { Icon } from '@/components/icon'
 import store from '@/store'
 import { mockMenuDatas } from '@/mock/side-menu'
-import { getRoleMenuData, defaultMenu } from "@/auth/index";
+import { getRoleMenuData, defaultMenu, defaultMenuTail } from "@/auth/index";
 import { isUndefined } from '@/utils/validate'
 import { useRoute } from 'vue-router'
 import { IS_SERVE } from '@/consts/index'
@@ -43,7 +43,7 @@ watch(
 const state = reactive({
     openKeys: store?.state?.auth?.currentMenu?.openKeys || [1],
     selectedKeys: store?.state?.auth?.currentMenu?.selectedKeys || [1],
-    userMenu: IS_SERVE ? (store?.state?.auth?.userMenu || [...defaultMenu]) : mockMenuDatas,
+    userMenu: IS_SERVE ? (store?.state?.auth?.userMenu || [...defaultMenu, ...defaultMenuTail]) : mockMenuDatas,
 })
 
 watch(
@@ -76,7 +76,7 @@ const getMenuInfo = async () => {
         console.log('error', error)
     }
 }
-// getMenuInfo();
+getMenuInfo();
 
 const updateCurrentMenu = ({ openKeys = [], selectedKeys = [] }) => {
     store.dispatch('auth/setCurrentMenu', { openKeys, selectedKeys })

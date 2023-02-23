@@ -24,6 +24,69 @@ const constRouter = [
         ]
     },
     {
+        path: "/composer",
+        name: "COMPOSER",
+        component: PortalView,
+        redirect: '/composer/index',
+        children: [
+            {
+                path: "index",
+                meta: {
+                    auth: true
+                },
+                name: "COMPOSER_LIST",
+                component: require('@/views/usermanaged/composer/index.vue').default
+            }, {
+                path: "detail",
+                name: "COMPOSER_DETAIL",
+                meta: {
+                    activeName: 'COMPOSER_LIST'
+                },
+                component: require('@/views/usermanaged/composer/detail.vue').default
+            }
+        ]
+    },
+    {
+        path: "/create",
+        name: "CHECK_PENDING",
+        component: PortalView,
+        redirect: '/create/index',
+        children: [
+            {
+                path: "index",
+                meta: {
+                    auth: true
+                },
+                name: "CHECK_PENDING_LIST",
+                component: require('@/views/usermanaged/create/index.vue').default
+            }, {
+                path: "detail",
+                meta: {
+                    auth: true,
+                    activeName: 'CHECK_PENDING_LIST'
+                },
+                name: "CHECK_PENDING_DETAIL",
+                component: require('@/views/usermanaged/create/detail.vue').default
+            }
+        ]
+    },
+    {
+        path: "/operating",
+        name: "OPERATING",
+        component: PortalView,
+        redirect: '/operating/index',
+        children: [
+            {
+                path: "index",
+                meta: {
+                    auth: true
+                },
+                name: "OPERATING_LIST",
+                component: require('@/views/usermanaged/operating/index.vue').default
+            }
+        ]
+    },
+    {
         path: "/login",
         name: "LOGIN",
         meta: {
@@ -81,6 +144,7 @@ router.beforeEach(async (to, from, next) => {
         return
     } else {
         await updateMenuOpenKeys(to);
+        db.save("CURRENT_ROUTER", to.path);
         next();
     }
 });

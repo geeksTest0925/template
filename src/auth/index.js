@@ -8,12 +8,22 @@ import router from "@/router";
 import { IS_SERVE } from "@/consts/index"
 
 export const defaultMenu = [
-    {
-        name: "首页",
-        alias: "HOME_DETAIL",
-        id: 1
-    },
+    // {
+    //     name: "首页",
+    //     alias: "HOME_DETAIL",
+    //     id: 1
+    // },
 ];
+
+export const defaultMenuTail = [
+    // {
+    //     name: "我的信息",
+    //     alias: "MY_INFO_DETAIL",
+    //     id: 2
+    // }
+]
+
+
 
 /**
  * 和权限相关需要更新数据的操作
@@ -30,12 +40,13 @@ export const authInit = async () => {
  */
 export const updateMenuOpenKeys = async to => {
     const name = to?.meta?.activeName || to.name
-    const allMenuID = IS_SERVE ? store?.state?.auth?.userAllMenuID || (await getRoleMenuData()) : store?.state?.auth?.mockMenuDatas;
-    const userMenu = IS_SERVE ? store?.state?.auth?.userMenu || (await getRoleMenuData()) : getOneArr(store?.state?.auth?.mockMenuDatas);
+    const allMenuID = store?.state?.auth?.userAllMenuID || (await getRoleMenuData());
+    const userMenu = store?.state?.auth?.userMenu || (await getRoleMenuData());
     let selectedKeys = [];
     let openKeys = [];
     // 当前选择的菜单信息
     const currentMenu = _.find(allMenuID, item => item?.alias === name);
+    console.log(currentMenu,'currentMenu...');
     if (currentMenu) {
         selectedKeys = !isUndefined(currentMenu?.id) ? [currentMenu?.id] : [];
         openKeys = treeFindAllParent(userMenu, data => data?.id == currentMenu?.id);
@@ -196,14 +207,16 @@ const getRoleMenuNameData = async () => {
  */
 export const getRoleMenuData = async () => {
     try {
-        const useMenuInfo = (await getRoutesData({})) || {};
+        const useMenuInfo = IS_SERVE ? (await getRoutesData({})) || {} : store?.state?.auth?.mockMenuDatas;
         const { code, data } = useMenuInfo || {};
         let userMenu = [];
         if (code === 200) {
             userMenu = Array.isArray(data) && data.length > 0 ? data : null;
+        } else {
+            userMenu = Array.isArray(useMenuInfo) && useMenuInfo.length > 0 ? useMenuInfo : null;
         }
         // userMenu = userMenu || (process.env.NODE_ENV === "development" ? mockMenuDatas : defaultMenu);
-        userMenu = matchRoute([...defaultMenu, ...userMenu]);
+        userMenu = matchRoute([...defaultMenu, ...userMenu, ...defaultMenuTail]);
         const allMenuID = getOneArr(userMenu);
         store.dispatch("auth/setMenuData", userMenu);
         store.dispatch("auth/setAllMenuID", allMenuID);

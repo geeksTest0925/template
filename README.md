@@ -1,4 +1,4 @@
-# front3
+# background-template
 
 ## Project setup
 ```
