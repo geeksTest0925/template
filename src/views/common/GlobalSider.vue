@@ -20,16 +20,16 @@
 </template>
 
 <script setup>
-import { reactive, watch } from 'vue'
-import SubMenu from '@/components/subMenu'
-import { Icon } from '@/components/icon'
-import store from '@/store'
-import { mockMenuDatas } from '@/mock/side-menu'
-import { getRoleMenuData, defaultMenu, defaultMenuTail } from "@/auth/index";
-import { isUndefined } from '@/utils/validate'
-import { useRoute } from 'vue-router'
-import { IS_SERVE } from '@/consts/index'
-const route = useRoute()
+import { reactive, watch } from 'vue';
+import SubMenu from '@/components/subMenu';
+import { Icon } from '@/components/icon';
+import store from '@/store';
+import { mockMenuDatas } from '@/mock/side-menu';
+import { getRoleMenuData, defaultMenu, defaultMenuTail } from '@/auth/index';
+import { isUndefined } from '@/utils/validate';
+import { useRoute } from 'vue-router';
+import { IS_SERVE } from '@/consts/index';
+const route = useRoute();
 watch(
     () => route.meta,
     (val) => {
@@ -38,69 +38,71 @@ watch(
     {
         immediate: true,
     }
-)
+);
 
 const state = reactive({
     openKeys: store?.state?.auth?.currentMenu?.openKeys || [1],
     selectedKeys: store?.state?.auth?.currentMenu?.selectedKeys || [1],
-    userMenu: IS_SERVE ? (store?.state?.auth?.userMenu || [...defaultMenu, ...defaultMenuTail]) : mockMenuDatas,
-})
+    userMenu: IS_SERVE
+        ? store?.state?.auth?.userMenu || [...defaultMenu, ...defaultMenuTail]
+        : mockMenuDatas,
+});
 
 watch(
     () => store?.state?.auth?.currentMenu,
     (newvalue, oldvalue) => {
-        state.selectedKeys = newvalue?.selectedKeys
-        state.openKeys = newvalue?.openKeys
+        state.selectedKeys = newvalue?.selectedKeys;
+        state.openKeys = newvalue?.openKeys;
     },
     {
         deep: true,
     }
-)
+);
 
 watch(
     () => store?.state?.auth?.userMenu,
     (newvalue, oldvalue) => {
-        state.userMenu = newvalue
+        state.userMenu = newvalue;
     },
     {
         deep: true,
     }
-)
+);
 
 // 获取当前用户角色配置的菜单
 const getMenuInfo = async () => {
     try {
-        const useMenuInfo = await getRoleMenuData()
-        state.userMenu = useMenuInfo
+        const useMenuInfo = await getRoleMenuData();
+        state.userMenu = useMenuInfo;
     } catch (error) {
-        console.log('error', error)
+        console.log('error', error);
     }
-}
+};
 getMenuInfo();
 
 const updateCurrentMenu = ({ openKeys = [], selectedKeys = [] }) => {
-    store.dispatch('auth/setCurrentMenu', { openKeys, selectedKeys })
-}
+    store.dispatch('auth/setCurrentMenu', { openKeys, selectedKeys });
+};
 const openChange = (openKeys) => {
     // console.log("openKeys==", openKeys);
-    const length = openKeys?.length
-    const lastValue = openKeys[length - 1]
-    state.selectedKeys = []
-    state.openKeys = [lastValue]
-    updateCurrentMenu({ openKeys: [lastValue] })
-}
+    const length = openKeys?.length;
+    const lastValue = openKeys[length - 1];
+    state.selectedKeys = [];
+    state.openKeys = [lastValue];
+    updateCurrentMenu({ openKeys: [lastValue] });
+};
 const handleSelect = ({ item, key, selectedKeys }) => {
     // console.log('item, key, selectedKeys',item, key, selectedKeys)
-    state.selectedKeys = selectedKeys
-    updateCurrentMenu({ openKeys: state.openKeys, selectedKeys })
-}
+    state.selectedKeys = selectedKeys;
+    updateCurrentMenu({ openKeys: state.openKeys, selectedKeys });
+};
 const handleMenuItem = (key) => {
-    state.openKeys = !isUndefined(key) ? [key] : []
+    state.openKeys = !isUndefined(key) ? [key] : [];
     updateCurrentMenu({
         openKeys: !isUndefined(key) ? [key] : [],
         selectedKeys: state.selectedKeys,
-    })
-}
+    });
+};
 </script>
 
 <style lang="less" scoped>

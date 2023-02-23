@@ -27,9 +27,9 @@ const props = defineProps({
         type: Boolean,
         default: true,
     },
-})
+});
 // const screenHeight = window.innerHeight;
-const screenWidth = window.innerWidth - 210
+const screenWidth = window.innerWidth - 210;
 </script>
 
 <style scoped lang="less">

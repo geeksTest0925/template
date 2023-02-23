@@ -8,21 +8,21 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { defineProps } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const props = defineProps({
     breadcrumbData: {
         type: Array,
         default: () => [],
     },
-})
-const breadcrumb = props.breadcrumbData
-console.log(breadcrumb, 'breadcrumb')
+});
+const breadcrumb = props.breadcrumbData;
+console.log(breadcrumb, 'breadcrumb');
 const change = (path) => {
-    if (router.currentRoute.value.fullPath === path) return
-    router.push(path)
-}
+    if (router.currentRoute.value.fullPath === path) return;
+    router.push(path);
+};
 </script>
 
 <style scoped lang="less">

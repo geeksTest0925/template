@@ -8,12 +8,12 @@
                 <div class="title">手机号登录</div>
                 <a-form :model="formState" name="normal_login">
                     <a-form-item name="mobile" v-bind="validateInfos.mobile">
-                        <a-input v-model:value="formState.mobile" @blur="validate('mobile', { trigger: 'change' })" placeholder="请输入手机号"/>
+                        <a-input v-model:value="formState.mobile" @blur="validate('mobile', { trigger: 'change' })" placeholder="请输入手机号" />
                     </a-form-item>
                     <div class="code-name">
                         <a-form-item name="verifyCode" v-bind="validateInfos.verifyCode">
-                            <a-input v-model:value="formState.verifyCode" @blur=" validate('verifyCode', { trigger: 'change' })" placeholder="请输入验证码" class="verification-code"/>
-                            <h-button class="btn-code" @click="getVerification" :disabled="codeButtonDisabled" >{{ codeButtonText }}</h-button>
+                            <a-input v-model:value="formState.verifyCode" @blur=" validate('verifyCode', { trigger: 'change' })" placeholder="请输入验证码" class="verification-code" />
+                            <h-button class="btn-code" @click="getVerification" :disabled="codeButtonDisabled">{{ codeButtonText }}</h-button>
                         </a-form-item>
                     </div>
                     <a-form-item :wrapper-col="{ offset: 8, span: 16 }" class="btn-pos">
@@ -26,21 +26,21 @@
 </template>
 
 <script setup>
-import { reactive, computed, ref, defineProps, watch } from "vue"
-import { Form, message } from "ant-design-vue"
-import store from "@/store"
-import { resultFactory, isUndefined } from "./utils"
-import { mobileCode } from './request'
-const defaultCountdownNumber = 60
+import { reactive, computed, ref, defineProps, watch } from 'vue';
+import { Form, message } from 'ant-design-vue';
+import store from '@/store';
+import { resultFactory, isUndefined } from './utils';
+import { mobileCode } from './request';
+const defaultCountdownNumber = 60;
 const props = defineProps({
     loginButtonTitle: {
         type: String,
-        default: '登录'
+        default: '登录',
     },
     // 多久获取一次验证码，默认是60
     countdownNumber: {
         type: Number,
-        default: 60
+        default: 60,
     },
     // 登录回调
     submitLogin: {
@@ -64,101 +64,106 @@ const props = defineProps({
     },
     logoUrl: {
         type: String,
-        default: require('./images/img_logo.png')
-    }
-})
-const useForm = Form.useForm
+        default: require('./images/img_logo.png'),
+    },
+});
+const useForm = Form.useForm;
 const formState = reactive({
-    mobile: "",
-    verifyCode: "",
-})
+    mobile: '',
+    verifyCode: '',
+});
 const loginDisabled = computed(() => {
-    return !(formState.mobile && formState.verifyCode)
-})
-const countdown = ref(props.countdownNumber)
-const clear = ref(null)
+    return !(formState.mobile && formState.verifyCode);
+});
+const countdown = ref(props.countdownNumber);
+const clear = ref(null);
 const loginLoading = computed(() => {
-    return store.state.account.loginLoading
-})
+    return store.state.account.loginLoading;
+});
 const codeButtonDisabled = computed(() => {
-    return countdown.value < defaultCountdownNumber && countdown.value >= 1
-})
+    return countdown.value < defaultCountdownNumber && countdown.value >= 1;
+});
 const codeButtonText = computed(() => {
-    return codeButtonDisabled.value ? `${countdown.value}s` : '获取验证码'
-})
+    return codeButtonDisabled.value ? `${countdown.value}s` : '获取验证码';
+});
 const validatorUserName = (rule, value, callback) => {
     if (isNaN(Number(value))) {
-        return Promise.reject("只能输入数字")
+        return Promise.reject('只能输入数字');
     } else if (value.length < 11) {
-        return Promise.reject("手机号错误")
+        return Promise.reject('手机号错误');
     } else {
-        return Promise.resolve()
+        return Promise.resolve();
     }
-}
+};
 const validatorCode = (rule, value, callback) => {
     if (isNaN(Number(value))) {
-        return Promise.reject("只能输入数字")
-    } else if (value === "") {
-        return Promise.reject("请输入验证码")
+        return Promise.reject('只能输入数字');
+    } else if (value === '') {
+        return Promise.reject('请输入验证码');
     } else if (value.length !== 4) {
-        return Promise.reject("验证码错误")
+        return Promise.reject('验证码错误');
     } else {
-        return Promise.resolve()
+        return Promise.resolve();
     }
-}
+};
 const rulesRef = reactive({
     mobile: [
         {
             required: true,
-            message: "手机号错误",
-            trigger: "change",
+            message: '手机号错误',
+            trigger: 'change',
             validator: validatorUserName,
         },
     ],
     verifyCode: [
         {
             required: true,
-            message: "验证码错误",
-            trigger: "change",
+            message: '验证码错误',
+            trigger: 'change',
             validator: validatorCode,
         },
     ],
-})
-const { validate, validateInfos } = useForm(formState, rulesRef)
+});
+const { validate, validateInfos } = useForm(formState, rulesRef);
 const getVerification = async () => {
     if (formState.mobile) {
-        countdown.vaue = defaultCountdownNumber
-        const request = props.getVerificationCodeRequest && props.getVerificationCodeRequest(formState) || mobileCode({ mobile: formState.mobile })
-        const result = await request
-        resultFactory({ result, successMsg: '验证码已发送' }).then(res => {
-            props.getVerificationCode && props.getVerificationCode(res)
-            countdown.value -= 1
-            clearInterval(clear.value)
-            clear.value = null
-            clear.value = setInterval(() => {
-                if (countdown.value > 0) {
-                    countdown.value -= 1
-                } else {
-                    clearInterval(clear.value)
-                }
-            }, 1000)
-        }).catch((error) => {
-            console.log(error)
-        })
+        countdown.vaue = defaultCountdownNumber;
+        const request =
+            (props.getVerificationCodeRequest &&
+                props.getVerificationCodeRequest(formState)) ||
+            mobileCode({ mobile: formState.mobile });
+        const result = await request;
+        resultFactory({ result, successMsg: '验证码已发送' })
+            .then((res) => {
+                props.getVerificationCode && props.getVerificationCode(res);
+                countdown.value -= 1;
+                clearInterval(clear.value);
+                clear.value = null;
+                clear.value = setInterval(() => {
+                    if (countdown.value > 0) {
+                        countdown.value -= 1;
+                    } else {
+                        clearInterval(clear.value);
+                    }
+                }, 1000);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     } else {
-        message.error("请输入手机号")
+        message.error('请输入手机号');
     }
-}
+};
 const handleSubmit = () => {
-      validate()
+    validate()
         .then(() => {
-            store.commit("account/SET_LOGIN_LOADING", true)
-            props.submitLogin && props.submitLogin(formState)
+            store.commit('account/SET_LOGIN_LOADING', true);
+            props.submitLogin && props.submitLogin(formState);
         })
         .catch((err) => {
-            message.error(err.errorFields[0].errors[0])
-    })
-}
+            message.error(err.errorFields[0].errors[0]);
+        });
+};
 </script>
 
 <style lang="less" scoped>

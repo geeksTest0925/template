@@ -71,7 +71,7 @@ export default {
         SET_ACCOUNT: (state, val) => {
             state.account = val;
             db.save('ACCOUNT', val);
-          },
+        },
         SET_USER_INFO: (state, val) => {
             if (validatenull(val.avatar)) {
                 val.avatar = "/img/avatar.png";

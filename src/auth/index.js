@@ -7,6 +7,7 @@ import db from 'utils/sessionStorage';
 import router from "@/router";
 import { IS_SERVE } from "@/consts/index"
 
+// 插入菜单最前
 export const defaultMenu = [
     // {
     //     name: "首页",
@@ -14,7 +15,7 @@ export const defaultMenu = [
     //     id: 1
     // },
 ];
-
+// 插入菜单最后
 export const defaultMenuTail = [
     // {
     //     name: "我的信息",
@@ -46,7 +47,7 @@ export const updateMenuOpenKeys = async to => {
     let openKeys = [];
     // 当前选择的菜单信息
     const currentMenu = _.find(allMenuID, item => item?.alias === name);
-    console.log(currentMenu,'currentMenu...');
+    console.log(currentMenu, 'currentMenu...');
     if (currentMenu) {
         selectedKeys = !isUndefined(currentMenu?.id) ? [currentMenu?.id] : [];
         openKeys = treeFindAllParent(userMenu, data => data?.id == currentMenu?.id);

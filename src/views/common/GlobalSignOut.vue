@@ -13,30 +13,30 @@
 </template>
 
 <script setup>
-import { DownOutlined } from '@ant-design/icons-vue'
-import { message } from 'ant-design-vue'
-import { computed } from 'vue'
-import store from '@/store'
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { DownOutlined } from '@ant-design/icons-vue';
+import { message } from 'ant-design-vue';
+import { computed } from 'vue';
+import store from '@/store';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const userInfo = computed(() => {
-    return store.getters.userInfo
-})
+    return store.getters.userInfo;
+});
 const clickMenuItem = ({ key }) => {
     if (key === 'logout') {
-        onOk()
+        onOk();
     }
-}
+};
 const onOk = () => {
     store
         .dispatch('account/LogOut')
         .then(() => {
-            router.replace({ path: '/login' })
+            router.replace({ path: '/login' });
         })
         .catch((err) => {
-            message.error(err.msg)
-        })
-}
+            message.error(err.msg);
+        });
+};
 </script>
 
 <style lang="less" scoped>

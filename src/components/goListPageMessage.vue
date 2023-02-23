@@ -14,7 +14,7 @@
     </div>
 </template>
 <script setup>
-import { ref, defineProps, defineEmits, watch } from 'vue'
+import { ref, defineProps, defineEmits, watch } from 'vue';
 const props = defineProps({
     tip: {
         type: String,
@@ -36,27 +36,27 @@ const props = defineProps({
         type: Boolean,
         default: () => false,
     },
-})
-const emit = defineEmits(['update:visible'])
-let ClearTime = null
-let time = ref(props.duration)
+});
+const emit = defineEmits(['update:visible']);
+let ClearTime = null;
+let time = ref(props.duration);
 watch(
     () => props.visible,
     (val) => {
         if (val) {
             ClearTime = setInterval(() => {
                 if (time.value > 1) {
-                    time.value--
+                    time.value--;
                 } else {
-                    emit('update:visible', false)
-                    time.value = props.duration
-                    clearInterval(ClearTime)
-                    return
+                    emit('update:visible', false);
+                    time.value = props.duration;
+                    clearInterval(ClearTime);
+                    return;
                 }
-            }, 1000)
+            }, 1000);
         }
     }
-)
+);
 </script>
 <style lang="less" scoped>
 .go-list-page-message {
