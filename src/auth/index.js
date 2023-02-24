@@ -47,7 +47,6 @@ export const updateMenuOpenKeys = async to => {
     let openKeys = [];
     // 当前选择的菜单信息
     const currentMenu = _.find(allMenuID, item => item?.alias === name);
-    console.log(currentMenu, 'currentMenu...');
     if (currentMenu) {
         selectedKeys = !isUndefined(currentMenu?.id) ? [currentMenu?.id] : [];
         openKeys = treeFindAllParent(userMenu, data => data?.id == currentMenu?.id);

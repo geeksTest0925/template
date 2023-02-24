@@ -26,10 +26,10 @@
 </template>
 
 <script setup>
-import { reactive, computed, ref, defineProps, watch } from 'vue';
+import { reactive, computed, ref, defineProps } from 'vue';
 import { Form, message } from 'ant-design-vue';
 import store from '@/store';
-import { resultFactory, isUndefined } from './utils';
+import { resultFactory } from './utils';
 import { mobileCode } from './request';
 const defaultCountdownNumber = 60;
 const props = defineProps({
