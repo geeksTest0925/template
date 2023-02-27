@@ -9,7 +9,6 @@ import { message } from 'ant-design-vue';
 import store from '@/store';
 import { useRouter } from 'vue-router';
 import { IS_SERVE } from '@/consts/index';
-import { ref } from 'vue';
 
 // LOGO背景
 const logoUrl = require('../../assets/image/login/img_logo.png');

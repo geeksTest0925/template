@@ -84,7 +84,6 @@ const updateCurrentMenu = ({ openKeys = [], selectedKeys = [] }) => {
     store.dispatch('auth/setCurrentMenu', { openKeys, selectedKeys });
 };
 const openChange = (openKeys) => {
-    // console.log("openKeys==", openKeys);
     const length = openKeys?.length;
     const lastValue = openKeys[length - 1];
     state.selectedKeys = [];
@@ -92,7 +91,6 @@ const openChange = (openKeys) => {
     updateCurrentMenu({ openKeys: [lastValue] });
 };
 const handleSelect = ({ item, key, selectedKeys }) => {
-    // console.log('item, key, selectedKeys',item, key, selectedKeys)
     state.selectedKeys = selectedKeys;
     updateCurrentMenu({ openKeys: state.openKeys, selectedKeys });
 };

@@ -5,7 +5,7 @@
         </div>
         <div class="right-box">
             <div class="right-container">
-                <div class="title">{{ isLogin ? '手机号登录' : '手机号注册' }}</div>
+                <div class="title">{{ isLogin ? loginTitle : registerTitle }}</div>
                 <a-form :model="formState" :rules="rulesRef" ref="formRef">
                     <a-form-item name="mobile">
                         <a-input v-model:value="formState.mobile" placeholder="请输入手机号" />
@@ -21,7 +21,7 @@
                         <h-button v-else class="btn-login" @click="handleRegister" :disabled="loginDisabled" :loading="loginLoading">立即注册</h-button>
                     </a-form-item>
                     <div v-if="isRegister">
-                        <p class="register" @click="goRegister">{{ isLogin ? '没有账号' : '已有账号' }}?<span>{{ isLogin ? '免费注册' : '立即登录' }}</span></p>
+                        <p class="register">{{ isLogin ? '没有账号' : '已有账号' }}?<span @click="goRegister">{{ isLogin ? '免费注册' : '立即登录' }}</span></p>
                     </div>
                 </a-form>
             </div>
@@ -37,6 +37,16 @@ import { resultFactory } from './utils';
 import { mobileCode } from './request';
 const defaultCountdownNumber = 60;
 const props = defineProps({
+    // 登录title
+    loginTitle: {
+        type: String,
+        default: '手机号登录'
+    },
+    // 注册title
+    registerTitle: {
+        type: String,
+        default: '手机号注册'
+    },
     // 多久获取一次验证码，默认是60
     countdownNumber: {
         type: Number,
@@ -309,11 +319,11 @@ const handleRegister = () => {
             display: flex;
             font-size: 12px;
             justify-content: right;
-            cursor: pointer;
 
             span {
                 margin-left: 5px;
                 color: #187af8;
+                cursor: pointer;
             }
         }
 
