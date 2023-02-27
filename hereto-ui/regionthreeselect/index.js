@@ -33683,8 +33683,8 @@ const customAjax = {
 ;// CONCATENATED MODULE: ./lib/api/regionThreeSelect.js
 
 // 获取省市区数据
-const getAreaData = (url, data) => {
-  return http.get(url + '/cms/region/select', data);
+const getAreaData = (url, portPath, data) => {
+  return http.get(url + portPath, data);
 };
 ;// CONCATENATED MODULE: ./lib/utils/regionData.js
 
@@ -33692,9 +33692,9 @@ const getAreaData = (url, data) => {
 
 
 // 获取省
-async function getProvinces(url) {
+async function getProvinces(url, portPath) {
   let arr = [];
-  let province = await getAreaData(url);
+  let province = await getAreaData(url, portPath);
   province.forEach(item => {
     arr.push({
       value: item.code,
@@ -33704,9 +33704,9 @@ async function getProvinces(url) {
   return arr;
 }
 // 获取市
-async function getCity(url, province) {
+async function getCity(url, portPath, province) {
   let arr = [];
-  let city = await getAreaData(url, {
+  let city = await getAreaData(url, portPath, {
     code: province
   });
   city.forEach(item => {
@@ -33718,9 +33718,9 @@ async function getCity(url, province) {
   return arr;
 }
 // 获取（区）县
-async function getArea(url, city) {
+async function getArea(url, portPath, city) {
   let arr = [];
-  let area = await getAreaData(url, {
+  let area = await getAreaData(url, portPath, {
     code: city
   });
   area.forEach(item => {
@@ -33751,7 +33751,7 @@ let localS = {
 /* harmony default export */ var utils_localStorage = (localS);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[11].use[0]!./lib/components/regionThreeSelect/index.vue?vue&type=script&setup=true&lang=js
 
-const _withScopeId = n => (_pushScopeId("data-v-0dc85da8"), n = n(), _popScopeId(), n);
+const _withScopeId = n => (_pushScopeId("data-v-43a896b2"), n = n(), _popScopeId(), n);
 const _hoisted_1 = ["url:"];
 
 
@@ -33759,9 +33759,13 @@ const _hoisted_1 = ["url:"];
 /* harmony default export */ var regionThreeSelectvue_type_script_setup_true_lang_js = ({
   __name: 'index',
   props: {
-    url: {
+    publicPath: {
       type: String,
       default: 'https://webartestapi.hereto.cn:18443/api'
+    },
+    portPath: {
+      type: String,
+      default: '/cms/region/select'
     },
     emptyStyle: {
       type: Object,
@@ -33774,6 +33778,10 @@ const _hoisted_1 = ["url:"];
           color: 'rgb(102, 102, 102)'
         };
       }
+    },
+    cache: {
+      type: Boolean,
+      default: () => true
     }
   },
   emits: ['province', 'city', 'country'],
@@ -33781,7 +33789,8 @@ const _hoisted_1 = ["url:"];
     emit
   }) {
     const props = __props;
-    const publicPath = props.url;
+    const publicPath = props.publicPath;
+    const portPath = props.portPath;
     // 所在城市选中的值
     const selectedCity = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.reactive)({
       province: [],
@@ -33806,12 +33815,17 @@ const _hoisted_1 = ["url:"];
       }
     });
     (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.onBeforeMount)(async () => {
-      const provinceCache = utils_localStorage.get('province') || [];
-      if (provinceCache.length > 0) {
-        selectedCity.province = provinceCache;
+      // 是否缓存
+      if (props.cache) {
+        const provinceCache = utils_localStorage.get('province') || [];
+        if (provinceCache.length > 0) {
+          selectedCity.province = provinceCache;
+        } else {
+          selectedCity.province = await getProvinces(publicPath, portPath);
+          utils_localStorage.save('province', selectedCity.province);
+        }
       } else {
-        selectedCity.province = await getProvinces(publicPath);
-        utils_localStorage.save('province', selectedCity.province);
+        selectedCity.province = await getProvinces(publicPath, portPath);
       }
     });
     // 选择省份
@@ -33820,7 +33834,7 @@ const _hoisted_1 = ["url:"];
       let index = selectedCity.province.findIndex(item => item.value === label.value);
       selectedCity.provinceName = selectedCity.province[index].label;
       // 缓存数据（不频繁请求接口）
-      if (cityCache[label.value] && cityCache[label.value].length > 0) {
+      if (props.cache && cityCache[label.value] && cityCache[label.value].length > 0) {
         selectedCity.cities = cityCache[label.value];
         emit('province', {
           code: label.value,
@@ -33828,9 +33842,9 @@ const _hoisted_1 = ["url:"];
         });
         return false;
       }
-      selectedCity.cities = await getCity(publicPath, label.value);
+      selectedCity.cities = await getCity(publicPath, portPath, label.value);
       cityCache[label.value] = selectedCity.cities;
-      utils_localStorage.save('city', cityCache);
+      if (props.cache) utils_localStorage.save('city', cityCache);
       emit('province', {
         code: label.value,
         name: selectedCity.provinceName
@@ -33842,7 +33856,7 @@ const _hoisted_1 = ["url:"];
       let index = selectedCity.cities.findIndex(item => item.value === label.value);
       selectedCity.cityName = selectedCity.cities[index].label;
       // 缓存数据（不频繁请求接口）
-      if (countyCache[label.value] && countyCache[label.value].length > 0) {
+      if (props.cache && countyCache[label.value] && countyCache[label.value].length > 0) {
         selectedCity.areas = countyCache[label.value];
         console.log(selectedCity.areas, 'selectedCity.areas');
         emit('city', {
@@ -33851,9 +33865,9 @@ const _hoisted_1 = ["url:"];
         });
         return false;
       }
-      selectedCity.areas = await getArea(publicPath, label.value);
+      selectedCity.areas = await getArea(publicPath, portPath, label.value);
       countyCache[label.value] = selectedCity.areas;
-      utils_localStorage.save('county', countyCache);
+      if (props.cache) utils_localStorage.save('county', countyCache);
       emit('city', {
         code: label.value,
         name: selectedCity.cityName
@@ -33912,7 +33926,7 @@ var exportHelper = __webpack_require__(3744);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,exportHelper/* default */.Z)(regionThreeSelectvue_type_script_setup_true_lang_js, [['__scopeId',"data-v-0dc85da8"]])
+const __exports__ = /*#__PURE__*/(0,exportHelper/* default */.Z)(regionThreeSelectvue_type_script_setup_true_lang_js, [['__scopeId',"data-v-43a896b2"]])
 
 /* harmony default export */ var regionThreeSelect = (__exports__);
 ;// CONCATENATED MODULE: ./lib/components/regionThreeSelect/index.js

@@ -3,13 +3,13 @@ export const mockMenuDatas = [
     {
         id: 1,
         name: '首页',
-        icon: 'InboxOutlined',
+        icon: 'MailOutlined',
         alias: 'HOME_DETAIL', // alias 别名 用于params跳转
     },
     {
         id: '10000011',
         name: '用户管理',
-        icon: 'InboxOutlined',
+        icon: 'MailOutlined',
         alias: '404',
         children: [
             {

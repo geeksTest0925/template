@@ -144,7 +144,7 @@ var mask_close_icon_default = /*#__PURE__*/__webpack_require__.n(mask_close_icon
 
 
 
-const _withScopeId = n => ((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.pushScopeId)("data-v-7e17d0fc"), n = n(), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.popScopeId)(), n);
+const _withScopeId = n => ((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.pushScopeId)("data-v-b1173552"), n = n(), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.popScopeId)(), n);
 const _hoisted_1 = {
   key: 0,
   class: "h-upload-ic-add-box"
@@ -192,10 +192,10 @@ const _hoisted_6 = /*#__PURE__*/_withScopeId(() => /*#__PURE__*/(0,external_root
   }) {
     const props = __props;
     (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.useCssVars)(_ctx => ({
-      "6502e3f6": (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.unref)(radius),
-      "4cc55e4a": (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.unref)(setBorder),
-      "51d97a3c": (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.unref)(pictureCardSize),
-      "2e3f39f2": (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.unref)(plusIconSize)
+      "6c3eaf7c": (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.unref)(radius),
+      "5bd8aff8": (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.unref)(setBorder),
+      "50d20ea5": (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.unref)(pictureCardSize),
+      "876d6184": (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.unref)(plusIconSize)
     }));
 
     /**
@@ -214,12 +214,6 @@ const _hoisted_6 = /*#__PURE__*/_withScopeId(() => /*#__PURE__*/(0,external_root
     const plusIconSize = props.plusIconSize;
     const radius = props.radius;
     const isShowAdd = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.ref)(true);
-    (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.watch)(() => attrs.fileList, val => {
-      const isReady = val.every(item => item.status !== "uploading");
-      if (val && isReady) {
-        isShowAdd.value = val.length < (attrs.maxCount || 1);
-      }
-    });
 
     /**
      * setBorder，设置圆角。
@@ -252,6 +246,7 @@ const _hoisted_6 = /*#__PURE__*/_withScopeId(() => /*#__PURE__*/(0,external_root
     };
     const handleChange = info => {
       emit("change", info);
+      isShowAdd.value = !(info.fileList.length && attrs.maxCount);
       (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.nextTick)(() => {
         const actions = [...document.getElementsByClassName("ant-upload-list-item-actions")][0];
         if (actions) {
@@ -299,7 +294,7 @@ var exportHelper = __webpack_require__(3744);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,exportHelper/* default */.Z)(Uploadvue_type_script_setup_true_lang_js, [['__scopeId',"data-v-7e17d0fc"]])
+const __exports__ = /*#__PURE__*/(0,exportHelper/* default */.Z)(Uploadvue_type_script_setup_true_lang_js, [['__scopeId',"data-v-b1173552"]])
 
 /* harmony default export */ var Upload = (__exports__);
 ;// CONCATENATED MODULE: ./lib/components/Upload/index.js

@@ -89,74 +89,84 @@ var __webpack_exports__ = {};
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": function() { return /* binding */ components_Button; }
+  "default": function() { return /* binding */ components_ModalConfirm; }
 });
 
 // EXTERNAL MODULE: external {"root":"Vue","commonjs":"vue","commonjs2":"vue","amd":"vue"}
 var external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_ = __webpack_require__(1895);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[11].use[0]!./lib/components/Button/index.vue?vue&type=script&setup=true&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[11].use[0]!./lib/components/ModalConfirm/index.vue?vue&type=script&setup=true&lang=js
 
-
-/* harmony default export */ var Buttonvue_type_script_setup_true_lang_js = ({
+const _withScopeId = n => ((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.pushScopeId)("data-v-35c8792e"), n = n(), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.popScopeId)(), n);
+const _hoisted_1 = {
+  key: 0,
+  class: "h-modal-confirm-container"
+};
+const _hoisted_2 = {
+  class: "h-modal-confirm-header"
+};
+const _hoisted_3 = /*#__PURE__*/_withScopeId(() => /*#__PURE__*/(0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createElementVNode)("div", {
+  class: "h-modal-confirm-icon"
+}, null, -1));
+const _hoisted_4 = {
+  class: "h-modal-confirm-title"
+};
+/* harmony default export */ var ModalConfirmvue_type_script_setup_true_lang_js = ({
   __name: 'index',
   props: {
-    radius: {
-      type: Boolean,
-      default: () => false
-    },
-    hType: {
+    title: {
       type: String,
-      default: () => 'primary'
+      default: () => ''
+    },
+    visible: {
+      type: Boolean,
+      default: () => true
     }
   },
   setup(__props) {
     const props = __props;
-    (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.defineComponent)({
-      name: 'h-button'
-    });
-    const classes = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.computed)(() => {
-      const {
-        hType
-      } = props;
-      const cls = 'h-btn';
-      return {
-        [`${cls}-${hType}`]: hType
-      };
-    });
     return (_ctx, _cache) => {
-      const _component_a_button = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("a-button");
-      return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.openBlock)(), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createBlock)(_component_a_button, (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.mergeProps)({
-        class: "h-btn"
-      }, _ctx.$attrs, {
-        radius: props.radius,
-        class: [(0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.unref)(classes)]
-      }), {
-        default: (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.withCtx)(() => [(0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.renderSlot)(_ctx.$slots, "default")]),
-        _: 3
-      }, 16, ["radius", "class"]);
+      return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.openBlock)(), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createElementBlock)(external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.Fragment, null, [(0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createTextVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.toDisplayString)(props.visible) + " ", 1), props.visible ? ((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.openBlock)(), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createElementBlock)("div", _hoisted_1, [(0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createElementVNode)("div", _hoisted_4, (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.toDisplayString)(props.title), 1)])])) : (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createCommentVNode)("", true)], 64);
     };
   }
 });
-;// CONCATENATED MODULE: ./lib/components/Button/index.vue?vue&type=script&setup=true&lang=js
+;// CONCATENATED MODULE: ./lib/components/ModalConfirm/index.vue?vue&type=script&setup=true&lang=js
  
 // EXTERNAL MODULE: ./node_modules/vue-loader/dist/exportHelper.js
 var exportHelper = __webpack_require__(3744);
-;// CONCATENATED MODULE: ./lib/components/Button/index.vue
+;// CONCATENATED MODULE: ./lib/components/ModalConfirm/index.vue
 
 
 
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,exportHelper/* default */.Z)(Buttonvue_type_script_setup_true_lang_js, [['__scopeId',"data-v-41ea87b7"]])
+const __exports__ = /*#__PURE__*/(0,exportHelper/* default */.Z)(ModalConfirmvue_type_script_setup_true_lang_js, [['__scopeId',"data-v-35c8792e"]])
 
-/* harmony default export */ var Button = (__exports__);
-;// CONCATENATED MODULE: ./lib/components/Button/index.js
+/* harmony default export */ var ModalConfirm = (__exports__);
+;// CONCATENATED MODULE: ./lib/components/ModalConfirm/confirm.js
 
-Button.install = Vue => {
-  Vue.component('h-button', Button);
+
+// 准备一个DOM容器
+const div = document.createElement('div');
+div.setAttribute('class', 'h-container');
+document.body.appendChild(div);
+const confirm_confirm = options => {
+  const vnode = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.h)(ModalConfirm, options);
+  (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.render)(vnode, div);
 };
-/* harmony default export */ var components_Button = (Button);
+const success = confirm_confirm.success = options => {
+  return confirm_confirm({
+    title: options.title,
+    visible: true
+  });
+};
+;// CONCATENATED MODULE: ./lib/components/ModalConfirm/index.js
+
+
+ModalConfirm.success = options => {
+  return success(options);
+};
+/* harmony default export */ var components_ModalConfirm = (ModalConfirm);
 }();
 __webpack_exports__ = __webpack_exports__["default"];
 /******/ 	return __webpack_exports__;

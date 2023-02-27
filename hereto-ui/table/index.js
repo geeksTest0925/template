@@ -1877,7 +1877,7 @@ CaretDownFilled_CaretDownFilled.inheritAttrs = false;
 /* harmony default export */ var icons_CaretDownFilled = (CaretDownFilled_CaretDownFilled);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[11].use[0]!./lib/components/Table/index.vue?vue&type=script&setup=true&lang=js
 
-const _withScopeId = n => (_pushScopeId("data-v-6a8324ad"), n = n(), _popScopeId(), n);
+const _withScopeId = n => (_pushScopeId("data-v-4435a054"), n = n(), _popScopeId(), n);
 const _hoisted_1 = {
   class: "h-table-filter-select"
 };
@@ -2007,6 +2007,7 @@ const _hoisted_2 = ["onClick"];
           emptyText: (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.withCtx)(() => [(0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)(_component_h_empty, {
             theme: props.emptyTheme
           }, null, 8, ["theme"])]),
+          summary: (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.withCtx)(() => [(0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.renderSlot)(_ctx.$slots, "summary")]),
           _: 3
         }, 16, ["pagination"])]),
         _: 3
@@ -2025,7 +2026,7 @@ var exportHelper = __webpack_require__(3744);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,exportHelper/* default */.Z)(Tablevue_type_script_setup_true_lang_js, [['__scopeId',"data-v-6a8324ad"]])
+const __exports__ = /*#__PURE__*/(0,exportHelper/* default */.Z)(Tablevue_type_script_setup_true_lang_js, [['__scopeId',"data-v-4435a054"]])
 
 /* harmony default export */ var Table = (__exports__);
 ;// CONCATENATED MODULE: ./lib/components/Table/index.js

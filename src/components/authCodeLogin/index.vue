@@ -5,20 +5,24 @@
         </div>
         <div class="right-box">
             <div class="right-container">
-                <div class="title">手机号登录</div>
-                <a-form :model="formState" name="normal_login">
-                    <a-form-item name="mobile" v-bind="validateInfos.mobile">
-                        <a-input v-model:value="formState.mobile" @blur="validate('mobile', { trigger: 'change' })" placeholder="请输入手机号" />
+                <div class="title">{{ isLogin ? '手机号登录' : '手机号注册' }}</div>
+                <a-form :model="formState" :rules="rulesRef" ref="formRef">
+                    <a-form-item name="mobile">
+                        <a-input v-model:value="formState.mobile" placeholder="请输入手机号" />
                     </a-form-item>
                     <div class="code-name">
-                        <a-form-item name="verifyCode" v-bind="validateInfos.verifyCode">
-                            <a-input v-model:value="formState.verifyCode" @blur=" validate('verifyCode', { trigger: 'change' })" placeholder="请输入验证码" class="verification-code" />
+                        <a-form-item name="verifyCode">
+                            <a-input v-model:value="formState.verifyCode" placeholder="请输入验证码" class="verification-code" />
                             <h-button class="btn-code" @click="getVerification" :disabled="codeButtonDisabled">{{ codeButtonText }}</h-button>
                         </a-form-item>
                     </div>
-                    <a-form-item :wrapper-col="{ offset: 8, span: 16 }" class="btn-pos">
-                        <h-button class="btn-login" @click="handleSubmit" :disabled="loginDisabled" :loading="loginLoading">{{ loginButtonTitle }}</h-button>
+                    <a-form-item class="btn-pos">
+                        <h-button v-if="isLogin" class="btn-login" @click="handleLogin" :disabled="loginDisabled" :loading="loginLoading">登录</h-button>
+                        <h-button v-else class="btn-login" @click="handleRegister" :disabled="loginDisabled" :loading="loginLoading">立即注册</h-button>
                     </a-form-item>
+                    <div v-if="isRegister">
+                        <p class="register" @click="goRegister">{{ isLogin ? '没有账号' : '已有账号' }}?<span>{{ isLogin ? '免费注册' : '立即登录' }}</span></p>
+                    </div>
                 </a-form>
             </div>
         </div>
@@ -33,10 +37,6 @@ import { resultFactory } from './utils';
 import { mobileCode } from './request';
 const defaultCountdownNumber = 60;
 const props = defineProps({
-    loginButtonTitle: {
-        type: String,
-        default: '登录',
-    },
     // 多久获取一次验证码，默认是60
     countdownNumber: {
         type: Number,
@@ -44,6 +44,11 @@ const props = defineProps({
     },
     // 登录回调
     submitLogin: {
+        type: Function,
+        default: null,
+    },
+    // 注册回调
+    submitRegister: {
         type: Function,
         default: null,
     },
@@ -66,12 +71,22 @@ const props = defineProps({
         type: String,
         default: require('./images/img_logo.png'),
     },
+    isRegister: {
+        type: Boolean,
+        default: false
+    }
 });
 const useForm = Form.useForm;
 const formState = reactive({
     mobile: '',
     verifyCode: '',
 });
+const formRef = ref();
+const isLogin = ref(true);
+const goRegister = () => {
+    formRef.value.resetFields();
+    isLogin.value = !isLogin.value;
+}
 const loginDisabled = computed(() => {
     return !(formState.mobile && formState.verifyCode);
 });
@@ -154,7 +169,7 @@ const getVerification = async () => {
         message.error('请输入手机号');
     }
 };
-const handleSubmit = () => {
+const handleLogin = () => {
     validate()
         .then(() => {
             store.commit('account/SET_LOGIN_LOADING', true);
@@ -164,14 +179,20 @@ const handleSubmit = () => {
             message.error(err.errorFields[0].errors[0]);
         });
 };
+const handleRegister = () => {
+    validate().then(() => {
+            store.commit('account/SET_REGISTER_LOADING', true);
+            props.submitRegister && props.submitRegister(formState);
+        })
+        .catch((err) => {
+            message.error(err.errorFields[0].errors[0]);
+        });
+}
 </script>
 
 <style lang="less" scoped>
 .verification-code {
     width: 148px !important;
-}
-.btn-pos {
-    margin-left: -210px;
 }
 .home {
     display: flex;
@@ -196,7 +217,6 @@ const handleSubmit = () => {
         display: flex;
         justify-content: center;
         .right-container {
-            width: 420px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -267,24 +287,36 @@ const handleSubmit = () => {
             height: 50px;
             background: rgba(245, 247, 250, 1) !important;
             border-radius: 4px;
-            border: 0;
+            border: 1px solid #f5f7fa;
             padding-left: 25px;
             box-sizing: border-box;
+            font-size: 18px !important;
+            caret-color: #333;
             &:focus {
                 border: rgba(56, 138, 252, 1) solid 1px;
             }
-            //color: red;
-            font-size: 18px !important;
-            caret-color: #333;
         }
         .code-name {
-            width: 600px;
+            // width: 600px;
             display: flex;
         }
         .btn-code {
             width: 142px;
             margin-left: 10px;
         }
+
+        .register {
+            display: flex;
+            font-size: 12px;
+            justify-content: right;
+            cursor: pointer;
+
+            span {
+                margin-left: 5px;
+                color: #187af8;
+            }
+        }
+
         .btn-login {
             width: 300px;
             height: 42px;
@@ -333,7 +365,7 @@ const handleSubmit = () => {
             border-radius: 12px;
         }
         :deep(.ant-form-item-has-error .ant-input) {
-            border: 1px solid red;
+            border: 1px solid red !important;
             outline: none;
             border-radius: 12px;
         }
@@ -342,8 +374,6 @@ const handleSubmit = () => {
         }
     }
 }
-</style>
-<style scoped>
 .ant-form-item-has-error
     :not(.ant-input-disabled):not(.ant-input-borderless).ant-input,
 .ant-form-item-has-error

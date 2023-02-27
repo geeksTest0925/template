@@ -1,5 +1,5 @@
 <template>
-    <AuthCodeLogin :submitLogin="handleSubmit" :logoUrl="logoUrl"></AuthCodeLogin>
+    <AuthCodeLogin :submitLogin="handleSubmit" :submitRegister="handleRegister" :logoUrl="logoUrl" :isRegister="true"></AuthCodeLogin>
 </template>
 
 <script setup>
@@ -9,6 +9,7 @@ import { message } from 'ant-design-vue';
 import store from '@/store';
 import { useRouter } from 'vue-router';
 import { IS_SERVE } from '@/consts/index';
+import { ref } from 'vue';
 
 // LOGO背景
 const logoUrl = require('../../assets/image/login/img_logo.png');
@@ -27,4 +28,7 @@ const handleSubmit = (formState) => {
             message.error(err);
         });
 };
+const handleRegister = (formState) => {
+    console.log(formState,'formState.....');
+}
 </script>

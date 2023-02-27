@@ -10,6 +10,7 @@ export default {
         tenantId: db.get('TENANTID'),
         userInfo: db.get('USER_INFO'),
         loginLoading: false,
+        registerLoding: false,
         account: db.get('ACCOUNT'),
     },
     actions: {
@@ -91,6 +92,9 @@ export default {
         },
         SET_LOGIN_LOADING: (state, val) => {
             state.loginLoading = val
+        },
+        SET_REGISTER_LOADING: (state, val) => {
+            state.registerLoding = val
         }
     }
 }
