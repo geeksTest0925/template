@@ -13,22 +13,22 @@
 </template>
 
 <script>
-import Config from './typeConfig';
+import Config from './typeConfig'
 
 export default {
     name: 'ExceptionPage',
     props: ['type'],
     data() {
         return {
-            config: Config,
-        };
+            config: Config
+        }
     },
     methods: {
         returnHome() {
-            this.$router.push('/');
-        },
-    },
-};
+            this.$router.push('/')
+        }
+    }
+}
 </script>
 
 <style lang="less" scoped>

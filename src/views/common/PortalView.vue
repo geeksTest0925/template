@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import PortalLayout from './PortalLayout';
+import PortalLayout from './PortalLayout'
 </script>
 
 <style lang="less" scoped>

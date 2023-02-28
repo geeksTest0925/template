@@ -3,12 +3,12 @@
     <a-range-picker :locale="locale" class="com-range-picker" v-bind="$attrs" showToday />
 </template>
 <script setup>
-import { ref } from 'vue';
-import dayjs from 'dayjs';
-import 'dayjs/locale/zh-cn';
-import zhCN from 'ant-design-vue/es/date-picker/locale/zh_CN';
-dayjs.locale('zh-cn');
-const locale = ref(zhCN);
+import { ref } from 'vue'
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+import zhCN from 'ant-design-vue/es/date-picker/locale/zh_CN'
+dayjs.locale('zh-cn')
+const locale = ref(zhCN)
 </script>
 <style lang="less" scoped>
 .com-range-picker {

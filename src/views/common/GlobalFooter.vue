@@ -9,13 +9,13 @@
 </template>
 
 <script setup>
-import { CopyrightOutlined } from '@ant-design/icons-vue';
-import { defineProps } from 'vue';
+import { CopyrightOutlined } from '@ant-design/icons-vue'
+import { defineProps } from 'vue'
 const props = defineProps({
     copyright: {
-        type: String,
-    },
-});
+        type: String
+    }
+})
 </script>
 
 <style lang="less" scoped>

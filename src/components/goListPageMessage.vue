@@ -7,56 +7,54 @@
             </div>
             <div class="title">{{ props.title }}</div>
         </div>
-        <div class="content" v-if="props.content">
-            {{ props.content }}
-        </div>
+        <div class="content" v-if="props.content">{{ props.content }}</div>
         <div class="tip">{{ time }}{{ props.tip }}</div>
     </div>
 </template>
 <script setup>
-import { ref, defineProps, defineEmits, watch } from 'vue';
+import { ref, defineProps, defineEmits, watch } from 'vue'
 const props = defineProps({
     tip: {
         type: String,
-        default: () => '',
+        default: () => ''
     },
     content: {
         type: String,
-        default: () => '',
+        default: () => ''
     },
     title: {
         type: String,
-        default: () => '',
+        default: () => ''
     },
     duration: {
         type: Number,
-        default: () => 2,
+        default: () => 2
     },
     visible: {
         type: Boolean,
-        default: () => false,
-    },
-});
-const emit = defineEmits(['update:visible']);
-let ClearTime = null;
-let time = ref(props.duration);
+        default: () => false
+    }
+})
+const emit = defineEmits(['update:visible'])
+let ClearTime = null
+let time = ref(props.duration)
 watch(
     () => props.visible,
-    (val) => {
+    val => {
         if (val) {
             ClearTime = setInterval(() => {
                 if (time.value > 1) {
-                    time.value--;
+                    time.value--
                 } else {
-                    emit('update:visible', false);
-                    time.value = props.duration;
-                    clearInterval(ClearTime);
-                    return;
+                    emit('update:visible', false)
+                    time.value = props.duration
+                    clearInterval(ClearTime)
+                    return
                 }
-            }, 1000);
+            }, 1000)
         }
     }
-);
+)
 </script>
 <style lang="less" scoped>
 .go-list-page-message {

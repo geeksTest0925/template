@@ -16,43 +16,43 @@
 </template>
 
 <script>
-import GlobalSider from '../common/GlobalSider';
-import GlobalFooter from '../common/GlobalFooter';
-import GlobalSignOut from './GlobalSignOut';
-import { mapMutations, mapState } from 'vuex';
-import { UPLOAD_STATUS } from '../../consts/index';
+import GlobalSider from '../common/GlobalSider'
+import GlobalFooter from '../common/GlobalFooter'
+import GlobalSignOut from './GlobalSignOut'
+import { mapMutations, mapState } from 'vuex'
+import { UPLOAD_STATUS } from '../../consts/index'
 
-let menuData = [];
+let menuData = []
 
 export default {
     name: 'PortalLayout',
     components: { GlobalSider, GlobalFooter, GlobalSignOut },
     data() {
         return {
-            menuData: menuData,
-        };
+            menuData: menuData
+        }
     },
     created() {
-        const data = {};
+        const data = {}
         data.config = {
             color: '#ff6600',
             fixHeader: '1',
             fixSiderbar: '1',
             layout: 'head', //"side",
             multiPage: '0',
-            theme: 'light',
-        };
-        this.saveLoginData(data);
+            theme: 'light'
+        }
+        this.saveLoginData(data)
     },
     computed: {
         ...mapState({
-            systemName: (state) => state.setting.systemName,
-            copyright: (state) => state.setting.copyright,
-            uploadStatus: (state) => state.business.uploadStatus,
+            systemName: state => state.setting.systemName,
+            copyright: state => state.setting.copyright,
+            uploadStatus: state => state.business.uploadStatus
         }),
         isUploading() {
-            return this.uploadStatus === UPLOAD_STATUS.uploading;
-        },
+            return this.uploadStatus === UPLOAD_STATUS.uploading
+        }
     },
     methods: {
         ...mapMutations({
@@ -62,18 +62,18 @@ export default {
             fixSiderbar: 'setting/fixSiderbar',
             fixHeader: 'setting/fixHeader',
             setColor: 'setting/setColor',
-            setUploadStatus: 'business/SET_UPLOADING',
+            setUploadStatus: 'business/SET_UPLOADING'
         }),
         saveLoginData(data) {
-            this.setTheme(data.config.theme);
-            this.setLayout(data.config.layout);
-            this.setMultipage(data.config.multiPage === '1');
-            this.fixSiderbar(data.config.fixSiderbar === '1');
-            this.fixHeader(data.config.fixHeader === '1');
-            this.setColor(data.config.color);
-        },
-    },
-};
+            this.setTheme(data.config.theme)
+            this.setLayout(data.config.layout)
+            this.setMultipage(data.config.multiPage === '1')
+            this.fixSiderbar(data.config.fixSiderbar === '1')
+            this.fixHeader(data.config.fixHeader === '1')
+            this.setColor(data.config.color)
+        }
+    }
+}
 </script>
 
 <style lang="less" scoped>

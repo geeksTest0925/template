@@ -4,7 +4,7 @@
 
 <script setup>
 import { fmtEmptyString } from '@/utils/index'
-import { defineProps } from 'vue';
+import { defineProps } from 'vue'
 const props = defineProps({
     text: {
         type: String

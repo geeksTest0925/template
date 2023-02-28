@@ -21,7 +21,10 @@
                         <h-button v-else class="btn-login" @click="handleRegister" :disabled="loginDisabled" :loading="registerLoading">立即注册</h-button>
                     </a-form-item>
                     <div v-if="isRegister">
-                        <p class="register">{{ isLogin ? '没有账号' : '已有账号' }}?<span @click="goRegister">{{ isLogin ? '免费注册' : '立即登录' }}</span></p>
+                        <p class="register">
+                            {{ isLogin ? '没有账号' : '已有账号' }}?
+                            <span @click="goRegister">{{ isLogin ? '免费注册' : '立即登录' }}</span>
+                        </p>
                     </div>
                 </a-form>
             </div>
@@ -30,12 +33,12 @@
 </template>
 
 <script setup>
-import { reactive, computed, ref, defineProps } from 'vue';
-import { Form, message } from 'ant-design-vue';
-import store from '@/store';
-import { resultFactory } from './utils';
-import { mobileCode } from './request';
-const defaultCountdownNumber = 60;
+import { reactive, computed, ref, defineProps } from 'vue'
+import { Form, message } from 'ant-design-vue'
+import store from '@/store'
+import { resultFactory } from './utils'
+import { mobileCode } from './request'
+const defaultCountdownNumber = 60
 const props = defineProps({
     // 登录title
     loginTitle: {
@@ -50,161 +53,159 @@ const props = defineProps({
     // 多久获取一次验证码，默认是60
     countdownNumber: {
         type: Number,
-        default: 60,
+        default: 60
     },
     // 登录回调
     submitLogin: {
         type: Function,
-        default: null,
+        default: null
     },
     // 注册回调
     submitRegister: {
         type: Function,
-        default: null,
+        default: null
     },
     // 验证码登录请求
     submitLoginRequest: {
         type: Function,
-        default: null,
+        default: null
     },
     // 获取验证码回调
     getVerificationCode: {
         type: Function,
-        default: null,
+        default: null
     },
     // 获取验证码网络请求
     getVerificationCodeRequest: {
         type: Function,
-        default: null,
+        default: null
     },
     // logo背景
     logoUrl: {
         type: String,
-        default: require('./images/img_logo.png'),
+        default: require('./images/img_logo.png')
     },
     // 是否开启注册功能
     isRegister: {
         type: Boolean,
         default: false
     }
-});
-const useForm = Form.useForm;
+})
+const useForm = Form.useForm
 const formState = reactive({
     mobile: '',
-    verifyCode: '',
-});
-const formRef = ref();
-const isLogin = ref(true);
+    verifyCode: ''
+})
+const formRef = ref()
+const isLogin = ref(true)
 const goRegister = () => {
-    formRef.value.resetFields();
-    isLogin.value = !isLogin.value;
-    countdown.value = 0;
+    formRef.value.resetFields()
+    isLogin.value = !isLogin.value
+    countdown.value = 0
 }
 const loginDisabled = computed(() => {
-    return !(formState.mobile && formState.verifyCode);
-});
-const countdown = ref(props.countdownNumber);
-const clear = ref(null);
+    return !(formState.mobile && formState.verifyCode)
+})
+const countdown = ref(props.countdownNumber)
+const clear = ref(null)
 const loginLoading = computed(() => {
-    return store.state.account.loginLoading;
-});
+    return store.state.account.loginLoading
+})
 const registerLoading = computed(() => {
-    return store.state.account.registerLoading;
-});
+    return store.state.account.registerLoading
+})
 const codeButtonDisabled = computed(() => {
-    return countdown.value < defaultCountdownNumber && countdown.value >= 1;
-});
+    return countdown.value < defaultCountdownNumber && countdown.value >= 1
+})
 const codeButtonText = computed(() => {
-    return codeButtonDisabled.value ? `${countdown.value}s` : '获取验证码';
-});
+    return codeButtonDisabled.value ? `${countdown.value}s` : '获取验证码'
+})
 const validatorUserName = (rule, value, callback) => {
     if (isNaN(Number(value))) {
-        return Promise.reject('只能输入数字');
+        return Promise.reject('只能输入数字')
     } else if (value.length < 11) {
-        return Promise.reject('手机号错误');
+        return Promise.reject('手机号错误')
     } else {
-        return Promise.resolve();
+        return Promise.resolve()
     }
-};
+}
 const validatorCode = (rule, value, callback) => {
     if (isNaN(Number(value))) {
-        return Promise.reject('只能输入数字');
+        return Promise.reject('只能输入数字')
     } else if (value === '') {
-        return Promise.reject('请输入验证码');
+        return Promise.reject('请输入验证码')
     } else if (value.length !== 4) {
-        return Promise.reject('验证码错误');
+        return Promise.reject('验证码错误')
     } else {
-        return Promise.resolve();
+        return Promise.resolve()
     }
-};
+}
 const rulesRef = reactive({
     mobile: [
         {
             required: true,
             message: '手机号错误',
             trigger: 'change',
-            validator: validatorUserName,
-        },
+            validator: validatorUserName
+        }
     ],
     verifyCode: [
         {
             required: true,
             message: '验证码错误',
             trigger: 'change',
-            validator: validatorCode,
-        },
-    ],
-});
-const { validate, validateInfos } = useForm(formState, rulesRef);
+            validator: validatorCode
+        }
+    ]
+})
+const { validate, validateInfos } = useForm(formState, rulesRef)
 const getVerification = async () => {
     try {
         if (formState.mobile) {
-        countdown.vaue = defaultCountdownNumber;
-        const request =
-            (props.getVerificationCodeRequest &&
-                props.getVerificationCodeRequest(formState)) ||
-            mobileCode({ mobile: formState.mobile });
-        const result = await request;
-        resultFactory({ result, successMsg: '验证码已发送' })
-            .then((res) => {
-                props.getVerificationCode && props.getVerificationCode(res);
-                countdown.value -= 1;
-                clearInterval(clear.value);
-                clear.value = null;
+            countdown.vaue = defaultCountdownNumber
+            const request =
+                (props.getVerificationCodeRequest && props.getVerificationCodeRequest(formState)) ||
+                mobileCode({ mobile: formState.mobile })
+            const result = await request
+            resultFactory({ result, successMsg: '验证码已发送' }).then(res => {
+                props.getVerificationCode && props.getVerificationCode(res)
+                countdown.value -= 1
+                clearInterval(clear.value)
+                clear.value = null
                 clear.value = setInterval(() => {
                     if (countdown.value > 0) {
-                        countdown.value -= 1;
+                        countdown.value -= 1
                     } else {
-                        clearInterval(clear.value);
+                        clearInterval(clear.value)
                     }
-                }, 1000);
+                }, 1000)
             })
         } else {
-            message.error('请输入手机号');
+            message.error('请输入手机号')
         }
     } catch (error) {
         message.error(error)
     }
-};
+}
 const handleLogin = () => {
     validate()
         .then(() => {
-            store.commit('account/SET_LOGIN_LOADING', true);
-            props.submitLogin && props.submitLogin(formState);
+            store.commit('account/SET_LOGIN_LOADING', true)
+            props.submitLogin && props.submitLogin(formState)
         })
-        .catch((err) => {
-            message.error(err.errorFields[0].errors[0]);
-        });
-};
+        .catch(err => {
+            message.error(err.errorFields[0].errors[0])
+        })
+}
 const handleRegister = () => {
     validate()
         .then(() => {
-            store.commit('account/SET_REGISTER_LOADING', true);
-            props.submitRegister && props.submitRegister(formState);
+            store.commit('account/SET_REGISTER_LOADING', true)
+            props.submitRegister && props.submitRegister(formState)
         })
-        .catch((err) => {
-            message.error(err.errorFields[0].errors[0]);
-        });
+        .catch(err => {
+            message.error(err.errorFields[0].errors[0])
+        })
 }
 </script>
 
@@ -293,11 +294,7 @@ const handleRegister = () => {
         :deep(.ant-input-suffix) {
             display: none;
         }
-        :deep(
-                .ant-form-item-control-input
-                    .ant-form-item-control-input-content
-                    .ant-input-affix-wrapper
-            ) {
+        :deep(.ant-form-item-control-input .ant-form-item-control-input-content .ant-input-affix-wrapper) {
             border-radius: 12px !important;
         }
         :deep(.ant-input) {
@@ -392,26 +389,14 @@ const handleRegister = () => {
         }
     }
 }
+.ant-form-item-has-error :not(.ant-input-disabled):not(.ant-input-borderless).ant-input,
+.ant-form-item-has-error :not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper,
 .ant-form-item-has-error
-    :not(.ant-input-disabled):not(.ant-input-borderless).ant-input,
+    :not(.ant-input-number-affix-wrapper-disabled):not(.ant-input-number-affix-wrapper-borderless).ant-input-number-affix-wrapper,
+.ant-form-item-has-error :not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover,
+.ant-form-item-has-error :not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:hover,
 .ant-form-item-has-error
-    :not(.ant-input-affix-wrapper-disabled):not(
-        .ant-input-affix-wrapper-borderless
-    ).ant-input-affix-wrapper,
-.ant-form-item-has-error
-    :not(.ant-input-number-affix-wrapper-disabled):not(
-        .ant-input-number-affix-wrapper-borderless
-    ).ant-input-number-affix-wrapper,
-.ant-form-item-has-error
-    :not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover,
-.ant-form-item-has-error
-    :not(.ant-input-affix-wrapper-disabled):not(
-        .ant-input-affix-wrapper-borderless
-    ).ant-input-affix-wrapper:hover,
-.ant-form-item-has-error
-    :not(.ant-input-number-affix-wrapper-disabled):not(
-        .ant-input-number-affix-wrapper-borderless
-    ).ant-input-number-affix-wrapper:hover {
+    :not(.ant-input-number-affix-wrapper-disabled):not(.ant-input-number-affix-wrapper-borderless).ant-input-number-affix-wrapper:hover {
     background: rgba(245, 247, 250, 1) !important;
     border-radius: 4px;
     border-color: red;
