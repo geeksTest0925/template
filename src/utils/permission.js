@@ -11,7 +11,7 @@ const isAdmin = (str) => {
     return str === ROLES.admin
 }
 // 传入权限数组/权限字符串，返回是否有权限
-export function isHasPermission (ruleOrRules, isShowMessage = true) {
+export function isHasPermission(ruleOrRules, isShowMessage = true) {
     try {
         let curentRole = store.state.account.userInfo.role_name
         if (isAdmin(curentRole)) return true
@@ -22,7 +22,7 @@ export function isHasPermission (ruleOrRules, isShowMessage = true) {
             hasPermission = ruleOrRules.some(item => item === curentRole)
         }
         if (!hasPermission && isShowMessage) {
-            console.log(isShowMessage,hasPermission)
+            console.log(isShowMessage, hasPermission)
             message.error('您没有此操作权限')
         }
         return hasPermission
