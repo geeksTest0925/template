@@ -4,7 +4,7 @@ export const mockMenuDatas = [
         id: 1,
         name: '首页',
         icon: 'MailOutlined',
-        alias: 'HOME_DETAIL', // alias 别名 用于params跳转
+        alias: 'HOME_DETAIL',
     },
     {
         id: 2,
