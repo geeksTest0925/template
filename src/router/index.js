@@ -144,7 +144,6 @@ router.beforeEach(async (to, from, next) => {
         next();
         return
     } else {
-        isNoPermission(constRouter)
         await updateMenuOpenKeys(to);
         db.save("CURRENT_ROUTER", to.path);
         next();
