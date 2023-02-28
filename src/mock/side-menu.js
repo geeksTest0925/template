@@ -7,23 +7,23 @@ export const mockMenuDatas = [
         alias: 'HOME_DETAIL', // alias 别名 用于params跳转
     },
     {
-        id: '10000011',
+        id: 2,
         name: '用户管理',
         icon: 'MailOutlined',
         alias: '404',
         children: [
             {
-                id: '10000020',
+                id: 201,
                 name: '修改信息',
                 alias: 'COMPOSER_LIST',
             },
             {
-                id: '10000030',
+                id: 202,
                 name: '创建信息',
                 alias: 'CHECK_PENDING_LIST',
             },
             {
-                id: '10000040',
+                id: 203,
                 name: '操作记录',
                 alias: 'OPERATING_LIST',
             },
