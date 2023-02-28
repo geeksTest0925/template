@@ -1,7 +1,7 @@
-import { Menu } from "ant-design-vue";
-import { Icon } from "./icon";
+import { Menu } from 'ant-design-vue';
+import { Icon } from './icon';
 const SubMenu = {
-    template: `
+	template: `
         <a-sub-menu :key="menuInfo?.id" v-bind="$props" >
             <template #icon >
                 <Icon :icon="menuInfo.icon||'MailOutlined'"></Icon>
@@ -17,20 +17,20 @@ const SubMenu = {
             </template>
         </a-sub-menu>
     `,
-    name: "SubMenu",
-    isSubMenu: true,
-    components: { Icon },
-    props: {
-        ...Menu.SubMenu.props,
-        menuInfo: {
-            type: Object,
-            default: () => ({}),
-        },
-        menuKey: {
-            type: [Number, String],
-            default: '',
-        },
-    }
+	name: 'SubMenu',
+	isSubMenu: true,
+	components: { Icon },
+	props: {
+		...Menu.SubMenu.props,
+		menuInfo: {
+			type: Object,
+			default: () => ({})
+		},
+		menuKey: {
+			type: [Number, String],
+			default: ''
+		}
+	}
 };
 
 export default SubMenu;

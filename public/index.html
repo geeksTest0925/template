@@ -1,64 +1,62 @@
 <!DOCTYPE html>
 <html data-theme="dark">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<link rel="shortcut icon" href="static/img/favicon.ico" type="image/icon" />
+		<title>后台管理</title>
+		<style type="text/css">
+			.loading {
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				border: 3px solid #3691ff;
+				border-left: 3px solid #fff;
+				animation: load 1s linear infinite;
+				-moz-animation: load 1s linear infinite;
+				-webkit-animation: load 1s linear infinite;
+				-o-animation: load 1s linear infinite;
+				position: fixed;
+				left: calc(50% - 40px);
+				top: calc(50% - 40px);
+			}
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="shortcut icon" href="static/img/favicon.ico" type="image/icon" />
-  <title>后台管理</title>
-  <style type="text/css">
-    .loading {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 3px solid #3691FF;
-      border-left: 3px solid #fff;
-      animation: load 1s linear infinite;
-      -moz-animation: load 1s linear infinite;
-      -webkit-animation: load 1s linear infinite;
-      -o-animation: load 1s linear infinite;
-      position: fixed;
-      left: calc(50% - 40px);
-      top: calc(50% - 40px);
-    }
+			@-webkit-keyframes load {
+				from {
+					-webkit-transform: rotate(0deg);
+				}
 
-    @-webkit-keyframes load {
-      from {
-        -webkit-transform: rotate(0deg);
-      }
+				to {
+					-webkit-transform: rotate(360deg);
+				}
+			}
 
-      to {
-        -webkit-transform: rotate(360deg);
-      }
-    }
+			@-moz-keyframes load {
+				from {
+					-moz-transform: rotate(0deg);
+				}
 
-    @-moz-keyframes load {
-      from {
-        -moz-transform: rotate(0deg);
-      }
+				to {
+					-moz-transform: rotate(360deg);
+				}
+			}
 
-      to {
-        -moz-transform: rotate(360deg);
-      }
-    }
+			@-o-keyframes load {
+				from {
+					-o-transform: rotate(0deg);
+				}
 
-    @-o-keyframes load {
-      from {
-        -o-transform: rotate(0deg);
-      }
+				to {
+					-o-transform: rotate(360deg);
+				}
+			}
+		</style>
+		<!-- <script type="text/javascript" src="static/common/vue.min.js"></script> -->
+	</head>
 
-      to {
-        -o-transform: rotate(360deg);
-      }
-    }
-  </style>
-  <!-- <script type="text/javascript" src="static/common/vue.min.js"></script> -->
-</head>
-
-<body>
-  <div id="app">
-    <div class="loading"></div>
-  </div>
-</body>
-
+	<body>
+		<div id="app">
+			<div class="loading"></div>
+		</div>
+	</body>
 </html>

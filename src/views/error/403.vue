@@ -1,9 +1,9 @@
 <template>
-    <exception-page type="403" />
+	<exception-page type="403" />
 </template>
 
 <script setup>
-import ExceptionPage from '~/exception/ExceptionPage'
+import ExceptionPage from '~/exception/ExceptionPage';
 </script>
 
 <style scoped></style>

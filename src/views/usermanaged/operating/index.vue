@@ -1,10 +1,9 @@
 <template>
-    <div>操作记录</div>
+	<div>操作记录</div>
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
-<style>
-</style>
+<style></style>

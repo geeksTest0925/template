@@ -1,21 +1,20 @@
 <template>
-    <div class="deve">
-        <img src="static/img/developing.png" alt />
-    </div>
+	<div class="deve">
+		<img src="static/img/developing.png" alt />
+	</div>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
 <style lang="less" scoped>
 .deve {
-    width: 100%;
-    height: 450px;
-    text-align: center;
-    padding-top: 80px;
-    background: #fff;
-    img {
-        height: 160px;
-    }
+	width: 100%;
+	height: 450px;
+	text-align: center;
+	padding-top: 80px;
+	background: #fff;
+	img {
+		height: 160px;
+	}
 }
 </style>

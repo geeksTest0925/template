@@ -1,14 +1,9 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./",
-        "paths": {
-            "@/*": [
-                "src/*"
-            ]
-        }
-    },
-    "exclude": [
-        "node_modules",
-        "hereto-ui"
-    ]
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@/*": ["src/*"]
+		}
+	},
+	"exclude": ["node_modules", "hereto-ui"]
 }

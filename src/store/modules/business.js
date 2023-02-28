@@ -1,9 +1,7 @@
-import db from 'utils/sessionStorage'
+import db from 'utils/sessionStorage';
 
 export default {
-    namespaced: true,
-    state: {
-    },
-    mutations: {
-    }
-}
+	namespaced: true,
+	state: {},
+	mutations: {}
+};
