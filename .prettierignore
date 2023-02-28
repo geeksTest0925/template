@@ -1,5 +1,8 @@
-.DS_Store
-node_modules
-/dist
-hereto-ui
-public
+/dist/*
+.local
+.output.js
+/node_modules/**
+**/*.svg
+**/*.sh
+/public/*
+/hereto-ui/*
