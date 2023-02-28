@@ -4,6 +4,7 @@ import db from "utils/sessionStorage";
 import { checkRoutePermission, updateMenuOpenKeys } from "@/auth/index";
 import { mockMenuDatas } from '../mock/side-menu';
 import store from "@/store";
+import { isNoPermission } from '@/utils/permission'
 const constRouter = [
     {
         path: "/",
@@ -143,6 +144,7 @@ router.beforeEach(async (to, from, next) => {
         next();
         return
     } else {
+        isNoPermission(constRouter)
         await updateMenuOpenKeys(to);
         db.save("CURRENT_ROUTER", to.path);
         next();
