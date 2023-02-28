@@ -5,7 +5,7 @@
         </div>
         <div class="right-box">
             <div class="right-container">
-                <div class="title">{{ isLogin ? loginTitle : registerTitle }}</div>
+                <div class="title">{{ loginTitle }}</div>
                 <a-form :model="formState" :rules="rulesRef" ref="formRef">
                     <a-form-item name="mobile">
                         <a-input v-model:value="formState.mobile" placeholder="请输入手机号" />
@@ -18,14 +18,7 @@
                     </div>
                     <a-form-item class="btn-pos">
                         <h-button v-if="isLogin" class="btn-login" @click="handleLogin" :disabled="loginDisabled" :loading="loginLoading">登录</h-button>
-                        <h-button v-else class="btn-login" @click="handleRegister" :disabled="loginDisabled" :loading="registerLoading">立即注册</h-button>
                     </a-form-item>
-                    <div v-if="isRegister">
-                        <p class="register">
-                            {{ isLogin ? '没有账号' : '已有账号' }}?
-                            <span @click="goRegister">{{ isLogin ? '免费注册' : '立即登录' }}</span>
-                        </p>
-                    </div>
                 </a-form>
             </div>
         </div>
@@ -45,11 +38,6 @@ const props = defineProps({
         type: String,
         default: '手机号登录'
     },
-    // 注册title
-    registerTitle: {
-        type: String,
-        default: '手机号注册'
-    },
     // 多久获取一次验证码，默认是60
     countdownNumber: {
         type: Number,
@@ -57,11 +45,6 @@ const props = defineProps({
     },
     // 登录回调
     submitLogin: {
-        type: Function,
-        default: null
-    },
-    // 注册回调
-    submitRegister: {
         type: Function,
         default: null
     },
@@ -85,11 +68,6 @@ const props = defineProps({
         type: String,
         default: require('./images/img_logo.png')
     },
-    // 是否开启注册功能
-    isRegister: {
-        type: Boolean,
-        default: false
-    }
 })
 const useForm = Form.useForm
 const formState = reactive({
@@ -110,9 +88,6 @@ const countdown = ref(props.countdownNumber)
 const clear = ref(null)
 const loginLoading = computed(() => {
     return store.state.account.loginLoading
-})
-const registerLoading = computed(() => {
-    return store.state.account.registerLoading
 })
 const codeButtonDisabled = computed(() => {
     return countdown.value < defaultCountdownNumber && countdown.value >= 1
@@ -192,16 +167,6 @@ const handleLogin = () => {
         .then(() => {
             store.commit('account/SET_LOGIN_LOADING', true)
             props.submitLogin && props.submitLogin(formState)
-        })
-        .catch(err => {
-            message.error(err.errorFields[0].errors[0])
-        })
-}
-const handleRegister = () => {
-    validate()
-        .then(() => {
-            store.commit('account/SET_REGISTER_LOADING', true)
-            props.submitRegister && props.submitRegister(formState)
         })
         .catch(err => {
             message.error(err.errorFields[0].errors[0])

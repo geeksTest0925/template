@@ -1,5 +1,5 @@
 <template>
-    <AuthCodeLogin :submitLogin="handleSubmit" :submitRegister="handleRegister" :logoUrl="logoUrl" :isRegister="false"></AuthCodeLogin>
+    <AuthCodeLogin :submitLogin="handleSubmit" :logoUrl="logoUrl"></AuthCodeLogin>
 </template>
 
 <script setup>
@@ -26,8 +26,5 @@ const handleSubmit = formState => {
             store.commit('account/SET_LOGIN_LOADING', false)
             message.error(err)
         })
-}
-const handleRegister = formState => {
-    console.log(formState, 'formState.....')
 }
 </script>

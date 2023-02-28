@@ -1,4 +1,4 @@
-const pre = 'LJYT_';
+const pre = '';
 let localS = {
     save (key, value) {
         const v = value || ''

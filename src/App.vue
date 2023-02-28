@@ -8,7 +8,7 @@
 import { ConfigProvider } from 'ant-design-vue'
 import chinese from 'ant-design-vue/es/locale/zh_CN'
 import 'moment/locale/zh-cn'
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 
 const Chinese = chinese
 onMounted(() => {
