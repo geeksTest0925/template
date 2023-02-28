@@ -1,5 +1,5 @@
 <template>
-    <AuthCodeLogin :submitLogin="handleSubmit" :submitRegister="handleRegister" :logoUrl="logoUrl" :isRegister="true"></AuthCodeLogin>
+    <AuthCodeLogin :submitLogin="handleSubmit" :submitRegister="handleRegister" :logoUrl="logoUrl" :isRegister="false"></AuthCodeLogin>
 </template>
 
 <script setup>

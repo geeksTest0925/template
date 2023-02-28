@@ -77,10 +77,12 @@ const props = defineProps({
         type: Function,
         default: null,
     },
+    // logo背景
     logoUrl: {
         type: String,
         default: require('./images/img_logo.png'),
     },
+    // 是否开启注册功能
     isRegister: {
         type: Boolean,
         default: false
@@ -96,6 +98,7 @@ const isLogin = ref(true);
 const goRegister = () => {
     formRef.value.resetFields();
     isLogin.value = !isLogin.value;
+    countdown.value = 0;
 }
 const loginDisabled = computed(() => {
     return !(formState.mobile && formState.verifyCode);
@@ -151,7 +154,8 @@ const rulesRef = reactive({
 });
 const { validate, validateInfos } = useForm(formState, rulesRef);
 const getVerification = async () => {
-    if (formState.mobile) {
+    try {
+        if (formState.mobile) {
         countdown.vaue = defaultCountdownNumber;
         const request =
             (props.getVerificationCodeRequest &&
@@ -172,11 +176,11 @@ const getVerification = async () => {
                     }
                 }, 1000);
             })
-            .catch((error) => {
-                console.log(error);
-            });
-    } else {
-        message.error('请输入手机号');
+        } else {
+            message.error('请输入手机号');
+        }
+    } catch (error) {
+        message.error(error)
     }
 };
 const handleLogin = () => {
@@ -190,7 +194,8 @@ const handleLogin = () => {
         });
 };
 const handleRegister = () => {
-    validate().then(() => {
+    validate()
+        .then(() => {
             store.commit('account/SET_REGISTER_LOADING', true);
             props.submitRegister && props.submitRegister(formState);
         })
