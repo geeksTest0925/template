@@ -18,7 +18,7 @@
                     </div>
                     <a-form-item class="btn-pos">
                         <h-button v-if="isLogin" class="btn-login" @click="handleLogin" :disabled="loginDisabled" :loading="loginLoading">登录</h-button>
-                        <h-button v-else class="btn-login" @click="handleRegister" :disabled="loginDisabled" :loading="loginLoading">立即注册</h-button>
+                        <h-button v-else class="btn-login" @click="handleRegister" :disabled="loginDisabled" :loading="registerLoading">立即注册</h-button>
                     </a-form-item>
                     <div v-if="isRegister">
                         <p class="register">{{ isLogin ? '没有账号' : '已有账号' }}?<span @click="goRegister">{{ isLogin ? '免费注册' : '立即登录' }}</span></p>
@@ -107,6 +107,9 @@ const countdown = ref(props.countdownNumber);
 const clear = ref(null);
 const loginLoading = computed(() => {
     return store.state.account.loginLoading;
+});
+const registerLoading = computed(() => {
+    return store.state.account.registerLoading;
 });
 const codeButtonDisabled = computed(() => {
     return countdown.value < defaultCountdownNumber && countdown.value >= 1;
