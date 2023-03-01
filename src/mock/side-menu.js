@@ -8,24 +8,24 @@ export const mockMenuDatas = [
 	},
 	{
 		id: 2,
-		name: '用户管理',
+		name: 'subnav',
 		icon: 'MailOutlined',
 		alias: '404',
 		children: [
 			{
 				id: 201,
-				name: '修改信息',
-				alias: 'COMPOSER_LIST'
+				name: 'option1',
+				alias: 'OPTION1_LIST'
 			},
 			{
 				id: 202,
-				name: '创建信息',
-				alias: 'CHECK_PENDING_LIST'
+				name: 'option2',
+				alias: 'OPTION2_LIST'
 			},
 			{
 				id: 203,
-				name: '操作记录',
-				alias: 'OPERATING_LIST'
+				name: 'options3',
+				alias: 'OPTION3_LIST'
 			}
 		]
 	}

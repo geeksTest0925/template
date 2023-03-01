@@ -25,67 +25,50 @@ const constRouter = [
 		]
 	},
 	{
-		path: '/composer',
-		name: 'COMPOSER',
+		path: '/option1',
+		name: 'OPTION1',
 		component: PortalView,
-		redirect: '/composer/index',
+		redirect: '/option1/index',
 		children: [
 			{
 				path: 'index',
 				meta: {
 					auth: true
 				},
-				name: 'COMPOSER_LIST',
-				component: require('@/views/usermanaged/composer/index.vue').default
-			},
-			{
-				path: 'detail',
-				name: 'COMPOSER_DETAIL',
-				meta: {
-					activeName: 'COMPOSER_LIST'
-				},
-				component: require('@/views/usermanaged/composer/detail.vue').default
+				name: 'OPTION1_LIST',
+				component: require('@/views/subnav/option1/index.vue').default
 			}
 		]
 	},
 	{
-		path: '/create',
-		name: 'CHECK_PENDING',
+		path: '/option2',
+		name: 'OPTION2',
 		component: PortalView,
-		redirect: '/create/index',
+		redirect: '/option2/index',
 		children: [
 			{
 				path: 'index',
 				meta: {
 					auth: true
 				},
-				name: 'CHECK_PENDING_LIST',
-				component: require('@/views/usermanaged/create/index.vue').default
-			},
-			{
-				path: 'detail',
-				meta: {
-					auth: true,
-					activeName: 'CHECK_PENDING_LIST'
-				},
-				name: 'CHECK_PENDING_DETAIL',
-				component: require('@/views/usermanaged/create/detail.vue').default
+				name: 'OPTION2_LIST',
+				component: require('@/views/subnav/option2/index.vue').default
 			}
 		]
 	},
 	{
-		path: '/operating',
-		name: 'OPERATING',
+		path: '/option3',
+		name: 'OPTION3',
 		component: PortalView,
-		redirect: '/operating/index',
+		redirect: '/option3/index',
 		children: [
 			{
 				path: 'index',
 				meta: {
 					auth: true
 				},
-				name: 'OPERATING_LIST',
-				component: require('@/views/usermanaged/operating/index.vue').default
+				name: 'OPTION3_LIST',
+				component: require('@/views/subnav/option3/index.vue').default
 			}
 		]
 	},

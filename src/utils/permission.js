@@ -2,13 +2,22 @@ import store from '@/store';
 import { message } from 'ant-design-vue';
 
 export const ROLES = {
-	admin: 'mall_admin'
+	admin: 'mall_admin',
+	supAdmin: 'mall_sup_admin',
+	//模型审核
+	modelCheck: 'model_check_man',
+	// 技术服务
+	techServ: 'tech_serv_man',
+	//视觉
+	video: 'video_man',
+	u3d: 'u3d_man',
+	h5: 'h5_man'
 };
 
 const isAdmin = (str) => {
 	// mock以防影响正常流程
 	// return true
-	return str === ROLES.admin;
+	return str === ROLES.admin || str === ROLES.supAdmin;
 };
 // 传入权限数组/权限字符串，返回是否有权限
 export function isHasPermission(ruleOrRules, isShowMessage = true) {

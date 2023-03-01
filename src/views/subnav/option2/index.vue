@@ -1,5 +1,5 @@
 <template>
-	<div>待审核详情</div>
+	<div>Content</div>
 </template>
 
 <script>

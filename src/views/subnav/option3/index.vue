@@ -1,5 +1,5 @@
 <template>
-	<div>创作者详情</div>
+	<div>Content</div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-	<div>待审核列表</div>
+	<div>Content</div>
 </template>
 
 <script>

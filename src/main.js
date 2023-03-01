@@ -6,7 +6,6 @@ import router from './router';
 import store from './store';
 import { mEmpty } from './plugins/Empty/index';
 import Antd from 'ant-design-vue';
-// import 'utils/lazy_antd.js'
 import 'ant-design-vue/dist/antd.less';
 import '../public/static/less/Color.less';
 import '../public/static/less/Common.less';

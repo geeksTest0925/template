@@ -20,7 +20,6 @@ import GlobalSider from '../common/GlobalSider';
 import GlobalFooter from '../common/GlobalFooter';
 import GlobalSignOut from './GlobalSignOut';
 import { mapMutations, mapState } from 'vuex';
-import { UPLOAD_STATUS } from '../../consts/index';
 
 let menuData = [];
 
@@ -47,12 +46,8 @@ export default {
 	computed: {
 		...mapState({
 			systemName: (state) => state.setting.systemName,
-			copyright: (state) => state.setting.copyright,
-			uploadStatus: (state) => state.business.uploadStatus
-		}),
-		isUploading() {
-			return this.uploadStatus === UPLOAD_STATUS.uploading;
-		}
+			copyright: (state) => state.setting.copyright
+		})
 	},
 	methods: {
 		...mapMutations({
@@ -61,8 +56,7 @@ export default {
 			setMultipage: 'setting/setMultipage',
 			fixSiderbar: 'setting/fixSiderbar',
 			fixHeader: 'setting/fixHeader',
-			setColor: 'setting/setColor',
-			setUploadStatus: 'business/SET_UPLOADING'
+			setColor: 'setting/setColor'
 		}),
 		saveLoginData(data) {
 			this.setTheme(data.config.theme);
