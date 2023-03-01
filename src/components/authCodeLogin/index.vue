@@ -17,9 +17,7 @@
 						</a-form-item>
 					</div>
 					<a-form-item class="btn-pos">
-						<h-button class="btn-login" @click="handleLogin" :disabled="loginDisabled" :loading="loginLoading"
-							>登录</h-button
-						>
+						<h-button class="btn-login" @click="handleLogin" :disabled="loginDisabled" :loading="loginLoading">登录</h-button>
 					</a-form-item>
 				</a-form>
 			</div>
