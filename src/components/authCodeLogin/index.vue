@@ -176,8 +176,6 @@ const handleLogin = () => {
 	.left-box {
 		width: 40%;
 		height: 100vh;
-		// background: url('./images/img_logo.png') no-repeat;
-		// background-size: cover;
 		.logo {
 			width: 100%;
 			height: 100%;
@@ -270,7 +268,6 @@ const handleLogin = () => {
 			}
 		}
 		.code-name {
-			// width: 600px;
 			display: flex;
 		}
 		.btn-code {
@@ -294,7 +291,6 @@ const handleLogin = () => {
 			width: 300px;
 			height: 42px;
 			display: flex;
-			// margin-left: -100px;
 			justify-content: center;
 			align-items: center;
 		}

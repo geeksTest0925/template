@@ -23,12 +23,8 @@ const props = defineProps({
 	padding: 21px 0;
 	text-align: center;
 	width: 100%;
-	// position: absolute;
-	// bottom: 0;
 	background: #2a2b33;
 	color: #b9b9b9;
-	// left: 0;
-	// z-index: 999;
 	.copyright {
 		i {
 			font-size: 0.8rem;

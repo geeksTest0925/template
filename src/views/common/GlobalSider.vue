@@ -38,15 +38,6 @@ import { isUndefined } from '@/utils/validate';
 import { useRoute } from 'vue-router';
 import { IS_SERVE } from '@/consts/index';
 const route = useRoute();
-watch(
-	() => route.meta,
-	(val) => {
-		// console.log(val, 'routename')
-	},
-	{
-		immediate: true
-	}
-);
 
 const state = reactive({
 	openKeys: store?.state?.auth?.currentMenu?.openKeys || [1],
@@ -112,7 +103,6 @@ const handleMenuItem = (key) => {
 <style lang="less" scoped>
 .a-logo {
 	height: 120px;
-	// margin-bottom: 60px;
 	display: flex;
 	justify-content: center;
 	align-items: center;

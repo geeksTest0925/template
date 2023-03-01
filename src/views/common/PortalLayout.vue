@@ -91,14 +91,6 @@ export default {
 	position: relative;
 	height: 100vh;
 	overflow-y: scroll;
-	// display: flex;
-	// align-items: center;
-	// flex-direction: column;
-	// min-height: calc(100vh - 160px);
-	// width: 100%;
-	// margin: 0 auto;
-	// padding-top: 64px;
-	// padding-bottom: 80px;
 	background-color: #212332;
 	width: auto !important;
 	.title {
