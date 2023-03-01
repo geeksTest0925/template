@@ -17,7 +17,7 @@
 						</a-form-item>
 					</div>
 					<a-form-item class="btn-pos">
-						<h-button v-if="isLogin" class="btn-login" @click="handleLogin" :disabled="loginDisabled" :loading="loginLoading"
+						<h-button class="btn-login" @click="handleLogin" :disabled="loginDisabled" :loading="loginLoading"
 							>登录</h-button
 						>
 					</a-form-item>
@@ -76,13 +76,6 @@ const formState = reactive({
 	mobile: '',
 	verifyCode: ''
 });
-const formRef = ref();
-const isLogin = ref(true);
-const goRegister = () => {
-	formRef.value.resetFields();
-	isLogin.value = !isLogin.value;
-	countdown.value = 0;
-};
 const loginDisabled = computed(() => {
 	return !(formState.mobile && formState.verifyCode);
 });
