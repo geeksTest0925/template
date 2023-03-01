@@ -145,8 +145,8 @@ router.beforeEach(async (to, from, next) => {
 		}
 		next();
 		return;
-    } else {
-        // mock以防影响正常流程
+	} else {
+		// mock以防影响正常流程
 		await updateMenuOpenKeys(to);
 		db.save('CURRENT_ROUTER', to.path);
 		next();
