@@ -8,6 +8,27 @@ import db from 'utils/sessionStorage';
 import { showReloadModal } from 'utils/tips';
 import { TIME_OUT } from '@/consts/index';
 moment.locale('zh-cn');
+
+/**
+ * 移除空字符串，null, undefined
+ * @param {*} config 
+ */
+const clearEmptyParam = (config) => {
+    ['data', 'params'].forEach(item => {
+        if (config[item]) {
+            const keys = Object.keys(config[item])
+            if (keys.length) {
+                keys.forEach(key => {
+                    if (['', undefined, null].includes(config[item][key]) &&
+                        isObject(config[item])) {
+                        delete config[item][key]
+                    }
+                })
+            }
+        }
+    })
+}
+
 // 统一配置
 let HTTP_REQUEST = axios.create({
 	responseType: 'json',
@@ -26,7 +47,8 @@ HTTP_REQUEST.interceptors.request.use(
 		if (token && token !== '') {
 			config.headers['Blade-Auth'] = 'bearer ' + token;
 		}
-		config.headers['Authorization'] = 'Basic bGp5dEh0Z2xXZWI6MEQxQTc0MDIwMkRBNzZEMA==';
+        config.headers['Authorization'] = 'Basic bGp5dEh0Z2xXZWI6MEQxQTc0MDIwMkRBNzZEMA==';
+        clearEmptyParam(config)
 		return config;
 	},
 	(error) => {
