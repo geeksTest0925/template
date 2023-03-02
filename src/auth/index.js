@@ -6,6 +6,7 @@ import _ from 'lodash';
 import db from 'utils/sessionStorage';
 import router from '@/router';
 import { IS_SERVE } from '@/consts/index';
+import { mockMenuDatas } from '@/mock/side-menu'
 
 // 插入菜单最前
 export const defaultMenu = [
@@ -204,7 +205,7 @@ const getRoleMenuNameData = async () => {
  */
 export const getRoleMenuData = async () => {
 	try {
-		const useMenuInfo = IS_SERVE ? (await getRoutesData({})) || {} : store?.state?.auth?.mockMenuDatas || {};
+		const useMenuInfo = IS_SERVE ? (await getRoutesData({})) || {} : mockMenuDatas || {};
 		const { code, data } = useMenuInfo || {};
 		let userMenu = [];
 		if (code === 200) {
