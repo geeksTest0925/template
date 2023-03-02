@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 import 'core-js/stable';
-import 'regenerator-runtime/runtime';
 import App from './App';
 import router from './router';
 import store from './store';
