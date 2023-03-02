@@ -14,5 +14,7 @@ export const getRoutesData = (params) => {
 
 // 获取当前用户角色配置的按钮code
 export const getButtonCodeOfCurRole = (params) => {
-	return request.get(base_api + '/cms/menu/getButtonCodeOfCurRole', { ...params });
+	return request.get(base_api + '/cms/menu/getButtonCodeOfCurRole', {
+		...params
+	});
 };

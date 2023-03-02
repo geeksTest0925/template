@@ -368,7 +368,11 @@ const customAjax = {
 	download(url, params, filename, method) {
 		return new Promise((resolve, reject) => {
 			let key = Date.now() + ' ';
-			let hideLoading = message.loading({ content: '文件传输中', key, duration: 0 });
+			let hideLoading = message.loading({
+				content: '文件传输中',
+				key,
+				duration: 0
+			});
 			// axios的坑：必须用axios({method:'get'})这种方法调用，用axios.get这种形式下载的文件会出错
 			HTTP_REQUEST({
 				method: method || 'post',
@@ -384,7 +388,11 @@ const customAjax = {
 				responseType: 'blob',
 				onDownloadProgress(evt) {
 					const percent = `${((100 * evt.loaded) / evt.total).toFixed(2)}%`;
-					message.loading({ content: `文件传输中${percent}`, key, duration: 0 });
+					message.loading({
+						content: `文件传输中${percent}`,
+						key,
+						duration: 0
+					});
 				}
 			})
 				.then((r) => {
