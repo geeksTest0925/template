@@ -1,5 +1,5 @@
 <template>
-	<AuthCodeLogin :submitLogin="handleSubmit" :logoUrl="logoUrl"></AuthCodeLogin>
+	<AuthCodeLogin :submitLogin="handleSubmit" :logoUrl="logoUrl" otherLoginWay="verifyCode"></AuthCodeLogin>
 </template>
 
 <script setup>
@@ -14,6 +14,9 @@ import { IS_SERVE } from '@/consts/index';
 const logoUrl = require('../../assets/image/login/img_logo.png');
 const router = useRouter();
 const handleSubmit = (formState) => {
+    // 设置权限自定义指令
+	// if (IS_SERVE) await authInit();
+    console.log(formState,'登录表单信息...');
 	store
 		.dispatch('account/loginByNameAndPwd', formState)
 		.then(async () => {

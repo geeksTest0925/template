@@ -1,5 +1,5 @@
 import db from 'utils/sessionStorage';
-import { logout, fetchCurrentUserInfo, fetchLogin } from '@/api/public.js';
+import { logout, fetchCurrentUserInfo, mobileCodeLogin, passwordLogin } from '@/api/public.js';
 import { validatenull } from '@/utils/validate';
 
 export default {
@@ -12,21 +12,24 @@ export default {
 		account: db.get('ACCOUNT')
 	},
 	actions: {
-		loginByNameAndPwd({ commit }, { mobile, verifyCode }) {
+		loginByNameAndPwd({ commit }, params) {
+			const { mobile, verifyCode, username, password } = params;
 			return new Promise((resolve, reject) => {
-				fetchLogin({ mobile, verifyCode })
-					.then((res) => {
-						resolve();
-						const reg = /(\d{3})\d{4}(\d{4})/;
-						const desTel = res.data.account.replace(reg, '$1****$2');
-						commit('SET_TOKEN', res.data.access_token);
-						commit('SET_ACCOUNT', desTel);
-						commit('SET_USER_INFO', res.data);
-					})
-					.catch((error) => {
-						commit('SET_LOGIN_LOADING', false);
-						reject(error);
-					});
+				if (mobile && verifyCode) {
+					mobileCodeLogin({ mobile, verifyCode })
+						.then((res) => {
+							resolve();
+							const reg = /(\d{3})\d{4}(\d{4})/;
+							const desTel = res.data.account.replace(reg, '$1****$2');
+							commit('SET_TOKEN', res.data.access_token);
+							commit('SET_ACCOUNT', desTel);
+							commit('SET_USER_INFO', res.data);
+						})
+						.catch((error) => {
+							commit('SET_LOGIN_LOADING', false);
+							reject(error);
+						});
+                }
 			});
 		},
 		async getUserInfo({ commit }) {

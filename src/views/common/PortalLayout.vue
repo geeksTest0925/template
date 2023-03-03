@@ -19,7 +19,6 @@
 import GlobalSider from '../common/GlobalSider';
 import GlobalFooter from '../common/GlobalFooter';
 import GlobalSignOut from './GlobalSignOut';
-import { mapMutations, mapState } from 'vuex';
 
 let menuData = [];
 
@@ -31,42 +30,6 @@ export default {
 			menuData: menuData
 		};
 	},
-	created() {
-		const data = {};
-		data.config = {
-			color: '#ff6600',
-			fixHeader: '1',
-			fixSiderbar: '1',
-			layout: 'head', //"side",
-			multiPage: '0',
-			theme: 'light'
-		};
-		this.saveLoginData(data);
-	},
-	computed: {
-		...mapState({
-			systemName: (state) => state.setting.systemName,
-			copyright: (state) => state.setting.copyright
-		})
-	},
-	methods: {
-		...mapMutations({
-			setTheme: 'setting/setTheme',
-			setLayout: 'setting/setLayout',
-			setMultipage: 'setting/setMultipage',
-			fixSiderbar: 'setting/fixSiderbar',
-			fixHeader: 'setting/fixHeader',
-			setColor: 'setting/setColor'
-		}),
-		saveLoginData(data) {
-			this.setTheme(data.config.theme);
-			this.setLayout(data.config.layout);
-			this.setMultipage(data.config.multiPage === '1');
-			this.fixSiderbar(data.config.fixSiderbar === '1');
-			this.fixHeader(data.config.fixHeader === '1');
-			this.setColor(data.config.color);
-		}
-	}
 };
 </script>
 

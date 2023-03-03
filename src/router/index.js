@@ -29,9 +29,6 @@ const constRouter = [
 		children: [
 			{
 				path: 'index',
-				meta: {
-					auth: true
-				},
 				name: 'OPTION1_LIST',
 				component: require('@/views/subnav/option1/index.vue').default
 			}
@@ -45,9 +42,6 @@ const constRouter = [
 		children: [
 			{
 				path: 'index',
-				meta: {
-					auth: true
-				},
 				name: 'OPTION2_LIST',
 				component: require('@/views/subnav/option2/index.vue').default
 			}

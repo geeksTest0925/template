@@ -4,9 +4,14 @@ import request from 'utils/http';
 const base_api = process.env.VUE_APP_BaseServiceUrl;
 // const base_api = 'https://webartestapi.hereto.cn:18443/api';
 
-// 登录
-export const fetchLogin = (data) => {
+// 手机号验证码登录
+export const mobileCodeLogin = (data) => {
 	return request.post(base_api + '/cms/cms-auth/oauth/mobile-code', data);
+};
+
+// 账号密码登录登录
+export const passwordLogin = (data) => {
+	return request.post(base_api + '/cms/cms-auth/oauth/password', data);
 };
 // 登出
 export const logout = () => {

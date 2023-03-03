@@ -37,12 +37,13 @@ import { getRoleMenuData, defaultMenu, defaultMenuTail } from '@/auth/index';
 import { isUndefined } from '@/utils/validate';
 import { useRoute } from 'vue-router';
 import { IS_SERVE } from '@/consts/index';
+import localS from '@/utils/localStorage';
 const route = useRoute();
 
 const state = reactive({
 	openKeys: store?.state?.auth?.currentMenu?.openKeys || [1],
 	selectedKeys: store?.state?.auth?.currentMenu?.selectedKeys || [1],
-	userMenu: IS_SERVE ? store?.state?.auth?.userMenu || [...defaultMenu, ...defaultMenuTail] : mockMenuDatas
+	userMenu: IS_SERVE ? localS.get('USER_MENUS') || [...defaultMenu, ...defaultMenuTail] : mockMenuDatas
 });
 
 watch(
@@ -57,7 +58,7 @@ watch(
 );
 
 watch(
-	() => store?.state?.auth?.userMenu,
+	() => localS.get('USER_MENUS'),
 	(newvalue, oldvalue) => {
 		state.userMenu = newvalue;
 	},

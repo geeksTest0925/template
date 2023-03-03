@@ -4,6 +4,7 @@ import { AUTH_DIRECTIVE_TYPE_MAP } from '@/consts/index';
 import { isUndefined } from '@/utils/validate';
 import _ from 'lodash';
 import db from 'utils/sessionStorage';
+import localS from '@/utils/localStorage';
 import router from '@/router';
 import { IS_SERVE } from '@/consts/index';
 import { mockMenuDatas } from '@/mock/side-menu'
@@ -40,8 +41,8 @@ export const authInit = async () => {
  */
 export const updateMenuOpenKeys = async (to) => {
 	const name = to?.meta?.activeName || to.name;
-	const allMenuID = store?.state?.auth?.userAllMenuID || (await getRoleMenuData());
-	const userMenu = store?.state?.auth?.userMenu || (await getRoleMenuData());
+	const allMenuID = localS.get('USER_ALL_MENU_ID') || (await getRoleMenuData());
+	const userMenu = localS.get('USER_MENUS') || (await getRoleMenuData());
 	let selectedKeys = [];
 	let openKeys = [];
 	// 当前选择的菜单信息
@@ -215,9 +216,9 @@ export const getRoleMenuData = async () => {
 		}
 		// userMenu = userMenu || (process.env.NODE_ENV === "development" ? mockMenuDatas : defaultMenu);
 		userMenu = matchRoute([...defaultMenu, ...userMenu, ...defaultMenuTail]);
-		const allMenuID = getOneArr(userMenu);
-		store.dispatch('auth/setMenuData', userMenu);
-		store.dispatch('auth/setAllMenuID', allMenuID);
+        const allMenuID = getOneArr(userMenu);
+        localS.save('USER_MENUS', userMenu);
+        localS.save('USER_ALL_MENU_ID', allMenuID);
 		return userMenu;
 	} catch (error) {
 		console.log('error', error);
