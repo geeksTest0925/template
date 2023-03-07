@@ -13,25 +13,36 @@
 			<div class="right-container">
 				<div class="title">{{ loginTitle }}</div>
 				<a-form :model="formState" :rules="rulesRef" ref="formRef">
-                    <a-form-item name="mobile" v-if="props.otherLoginWay === VERIFY_CODE_LOGIN || props.otherLoginWay === MOBILE_PASSWORD_LOGIN">
-                        <a-input v-model:value="formState.mobile" placeholder="请输入手机号" :maxlength="11" />
-                    </a-form-item>
-                    <div class="code-name" v-if="props.otherLoginWay === VERIFY_CODE_LOGIN">
-                        <a-form-item name="verifyCode">
-                            <a-input v-model:value="formState.verifyCode" placeholder="请输入验证码" class="verification-code" :maxlength="props.verifyCodeLength"/>
-                            <h-button class="btn-code" @click="getVerification" :disabled="codeButtonDisabled">{{ codeButtonText }}</h-button>
-                        </a-form-item>
-                    </div>
-                    <div class="username" v-if="props.otherLoginWay === USER_NAME_PASSWORD_LOGIN">
-                        <a-form-item name="username">
-							<a-input v-model:value="formState.username" placeholder="请输入用户名" :maxlength="props.userNameLength"/>
+					<a-form-item
+						name="mobile"
+						v-if="props.otherLoginWay === VERIFY_CODE_LOGIN || props.otherLoginWay === MOBILE_PASSWORD_LOGIN"
+					>
+						<a-input v-model:value="formState.mobile" placeholder="请输入手机号" :maxlength="11" />
+					</a-form-item>
+					<div class="code-name" v-if="props.otherLoginWay === VERIFY_CODE_LOGIN">
+						<a-form-item name="verifyCode">
+							<a-input
+								v-model:value="formState.verifyCode"
+								placeholder="请输入验证码"
+								class="verification-code"
+								:maxlength="props.verifyCodeLength"
+							/>
+							<h-button class="btn-code" @click="getVerification" :disabled="codeButtonDisabled">{{ codeButtonText }}</h-button>
 						</a-form-item>
-                    </div>
-                    <div class="password" v-if="props.otherLoginWay === MOBILE_PASSWORD_LOGIN || props.otherLoginWay === USER_NAME_PASSWORD_LOGIN">
-                        <a-form-item name="password">
-							<a-input v-model:value="formState.password" placeholder="请输入密码" :maxlength="props.passwordLength"/>
+					</div>
+					<div class="username" v-if="props.otherLoginWay === USER_NAME_PASSWORD_LOGIN">
+						<a-form-item name="username">
+							<a-input v-model:value="formState.username" placeholder="请输入用户名" :maxlength="props.userNameLength" />
 						</a-form-item>
-                    </div>
+					</div>
+					<div
+						class="password"
+						v-if="props.otherLoginWay === MOBILE_PASSWORD_LOGIN || props.otherLoginWay === USER_NAME_PASSWORD_LOGIN"
+					>
+						<a-form-item name="password">
+							<a-input v-model:value="formState.password" placeholder="请输入密码" :maxlength="props.passwordLength" />
+						</a-form-item>
+					</div>
 					<a-form-item class="btn-pos">
 						<h-button class="btn-login" @click="handleLogin" :disabled="loginDisabled" :loading="loginLoading"> 登录 </h-button>
 					</a-form-item>
@@ -71,22 +82,22 @@ const props = defineProps({
 	submitLoginRequest: {
 		type: Function,
 		default: null
-    },
-    // 验证码最大长度
-    verifyCodeLength: {
-        type: Number,
-        default: 4
-    },
-    // 用户名最大长度
-    userNameLength: {
-        type: Number,
-        default: 10
-    },
-    // 密码最大长度
-    passwordLength: {
-        type: Number,
-        default: 10
-    },
+	},
+	// 验证码最大长度
+	verifyCodeLength: {
+		type: Number,
+		default: 4
+	},
+	// 用户名最大长度
+	userNameLength: {
+		type: Number,
+		default: 10
+	},
+	// 密码最大长度
+	passwordLength: {
+		type: Number,
+		default: 10
+	},
 	// 获取验证码回调
 	getVerificationCode: {
 		type: Function,
@@ -101,17 +112,21 @@ const props = defineProps({
 	logoUrl: {
 		type: String,
 		default: require('./images/img_logo.png')
-    },
-    // 其他登录方法 <'verifyCode'|'mobilePassword'|'userNamePassword'>
-    otherLoginWay: {
-        type: String,
-        default: 'mobilePassword'
-    },
+	},
+	// 其他登录方法 <'verifyCode'|'mobilePassword'|'userNamePassword'>
+	otherLoginWay: {
+		type: String,
+		default: 'mobilePassword'
+	}
 });
 const useForm = Form.useForm;
 const formState = reactive({});
 const loginDisabled = computed(() => {
-	return !(formState.mobile && formState.verifyCode) && !(formState.mobile && formState.password) && !(formState.username && formState.password);
+	return (
+		!(formState.mobile && formState.verifyCode) &&
+		!(formState.mobile && formState.password) &&
+		!(formState.username && formState.password)
+	);
 });
 const countdown = ref(props.countdownNumber);
 const clear = ref(null);
@@ -145,16 +160,16 @@ const validatorCode = (rule, value, callback) => {
 	}
 };
 const validatorUserName = (rule, value, callback) => {
-    if (!value) {
-        return Promise.reject('请输入用户名');
-    } else {
+	if (!value) {
+		return Promise.reject('请输入用户名');
+	} else {
 		return Promise.resolve();
 	}
 };
 const validatorPassword = (rule, value, callback) => {
-    if (!value) {
-        return Promise.reject('请输入密码');
-    } else {
+	if (!value) {
+		return Promise.reject('请输入密码');
+	} else {
 		return Promise.resolve();
 	}
 };
@@ -174,23 +189,23 @@ const rulesRef = reactive({
 			trigger: 'change',
 			validator: validatorCode
 		}
-    ],
-    username: [
-        {
-            required: true,
+	],
+	username: [
+		{
+			required: true,
 			message: '请输入用户名',
 			trigger: 'change',
 			validator: validatorUserName
-        }
-    ],
-    password: [
-        {
-            required: true,
+		}
+	],
+	password: [
+		{
+			required: true,
 			message: '请输入密码',
 			trigger: 'change',
 			validator: validatorPassword
-        }
-    ]
+		}
+	]
 });
 const { validate, validateInfos } = useForm(formState, rulesRef);
 const getVerification = async () => {
@@ -223,12 +238,12 @@ const getVerification = async () => {
 };
 const handleLogin = () => {
 	validate()
-        .then(() => {
+		.then(() => {
 			store.commit('account/SET_LOGIN_LOADING', true);
 			props.submitLogin && props.submitLogin(formState);
 		})
-        .catch((err) => {
-            console.log(err,'err..');
+		.catch((err) => {
+			console.log(err, 'err..');
 			message.error(err.errorFields[0].errors[0]);
 		});
 };

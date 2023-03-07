@@ -7,7 +7,7 @@ import db from 'utils/sessionStorage';
 import localS from '@/utils/localStorage';
 import router from '@/router';
 import { IS_SERVE } from '@/consts/index';
-import { mockMenuDatas } from '@/mock/side-menu'
+import { mockMenuDatas } from '@/mock/side-menu';
 
 // 插入菜单最前
 export const defaultMenu = [
@@ -216,9 +216,9 @@ export const getRoleMenuData = async () => {
 		}
 		// userMenu = userMenu || (process.env.NODE_ENV === "development" ? mockMenuDatas : defaultMenu);
 		userMenu = matchRoute([...defaultMenu, ...userMenu, ...defaultMenuTail]);
-        const allMenuID = getOneArr(userMenu);
-        localS.save('USER_MENUS', userMenu);
-        localS.save('USER_ALL_MENU_ID', allMenuID);
+		const allMenuID = getOneArr(userMenu);
+		localS.save('USER_MENUS', userMenu);
+		localS.save('USER_ALL_MENU_ID', allMenuID);
 		return userMenu;
 	} catch (error) {
 		console.log('error', error);

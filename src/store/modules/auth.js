@@ -6,7 +6,7 @@ export default {
 	state: {
 		userButtons: localS.get('USER_BUTTONS'),
 		userRoleRouteName: localS.get('USER_ROLE_ROUTE_NAME'),
-		currentMenu: db.get('CURRENT_MENU'),
+		currentMenu: db.get('CURRENT_MENU')
 	},
 	actions: {
 		setButtonData({ commit }, data) {
@@ -17,7 +17,7 @@ export default {
 		},
 		setCurrentMenu({ commit }, data) {
 			commit('SET_CURRENT_MENU', data);
-		},
+		}
 	},
 	mutations: {
 		SET_USER_BUTTONS: (state, val) => {
@@ -31,6 +31,6 @@ export default {
 		SET_CURRENT_MENU: (state, val) => {
 			state.currentMenu = val;
 			db.save('CURRENT_MENU', val);
-		},
+		}
 	}
 };

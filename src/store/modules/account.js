@@ -28,7 +28,7 @@ export default {
 							commit('SET_LOGIN_LOADING', false);
 							reject(error);
 						});
-                }
+				}
 			});
 		},
 		async getUserInfo({ commit }) {

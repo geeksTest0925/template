@@ -22,8 +22,8 @@ function showExpireModal(diffTime) {
 				resolve();
 			},
 			onCancel() {
-                db.clear();
-                localS.clear();
+				db.clear();
+				localS.clear();
 				db.save('CURRENT_ROUTER', router.history.current.fullPath);
 				location.reload();
 				reject;
@@ -41,8 +41,8 @@ function showReloadModal() {
 		okText: '重新登录',
 		onOk: () => {
 			return new Promise((resolve, reject) => {
-                db.clear();
-                localS.clear();
+				db.clear();
+				localS.clear();
 				router.push({ path: '/login' });
 				resolve();
 				setTimeout(() => {

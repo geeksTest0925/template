@@ -1,51 +1,74 @@
-@main_blue: #2a82e4;
-@shallow_blue: #579dff;
+@main_blue: #2A82E4;
+@shallow_blue: #579DFF;
 
 html {
-	overflow-y: overlay;
+  overflow-y: overlay;
 }
 
 body {
-	height: auto;
-	background-color: #f4f4f4;
+  height: auto;
+  background-color: #f4f4f4;
 }
 
 input:-webkit-autofill {
-	box-shadow: 0 0 0px 1000px white inset;
+  box-shadow: 0 0 0px 1000px white inset;
 }
 
 .fold {
-	width: calc(100% - 216px);
-	display: inline-block;
+  width: calc(100% - 216px);
+  display: inline-block
 }
 
 .operator {
-	margin-bottom: 18px;
+  margin-bottom: 18px;
 }
 
 @media screen and (max-width: 900px) {
-	.fold {
-		width: 100%;
-	}
+  .fold {
+    width: 100%;
+  }
 }
 
 .operator button {
-	margin-right: 5px;
+  margin-right: 5px;
 }
 
 i {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .drawer-bootom-button {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	border-top: 1px solid #e8e8e8;
-	padding: 10px 16px;
-	text-align: right;
-	left: 0;
-	background: #fff;
-	border-radius: 0 0 2px 2px;
-	z-index: 1;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #e8e8e8;
+  padding: 10px 16px;
+  text-align: right;
+  left: 0;
+  background: #fff;
+  border-radius: 0 0 2px 2px;
+  z-index: 1;
+}
+
+
+
+.sign-out-dropdown .ant-dropdown-menu-light {
+  height: 48px;
+  border-radius: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-out-dropdown .ant-dropdown-menu-item {
+  padding: 0;
+}
+
+.sign-out-dropdown .ant-dropdown-menu-item .ant-dropdown-menu-title-content {
+  text-align: center;
+  line-height: 48px;
+  font-size: 14px;
+  color: rgba(255, 54, 54, 1);
+  display: block;
+  border-radius: 60px;
 }
