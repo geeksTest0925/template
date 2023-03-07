@@ -67,6 +67,7 @@ import "core-js/es/set";
 
 ```html
 // 在应用程序代码中，通过使用字符串作为参数调用md5方法来计算字符串的（十六进制编码）md5哈希
+// 可以当做密码验证、搜索、版权、文件完整性的校验以及文件上传
 import md5 from 'js-md5'
 let hash = md5('abc123')
 console.log(hash)

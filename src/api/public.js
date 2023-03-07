@@ -13,6 +13,7 @@ export const mobileCodeLogin = (data) => {
 export const passwordLogin = (data) => {
 	return request.post(base_api + '/cms/cms-auth/oauth/password', data);
 };
+
 // 登出
 export const logout = () => {
 	return request.post(base_api + '/cms/cms-auth/oauth/logout');

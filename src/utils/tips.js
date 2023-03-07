@@ -3,6 +3,7 @@ import router from '../router';
 import moment from 'moment';
 import { Modal } from 'ant-design-vue';
 import db from 'utils/sessionStorage';
+import localS from './localStorage';
 
 //更新用户操作时间
 function toMoment(date) {
@@ -21,7 +22,8 @@ function showExpireModal(diffTime) {
 				resolve();
 			},
 			onCancel() {
-				db.clear();
+                db.clear();
+                localS.clear();
 				db.save('CURRENT_ROUTER', router.history.current.fullPath);
 				location.reload();
 				reject;
@@ -39,11 +41,8 @@ function showReloadModal() {
 		okText: '重新登录',
 		onOk: () => {
 			return new Promise((resolve, reject) => {
-				db.clear();
-				// change log 新增判断 router.history可能为空
-				// if(router.history && router.history.current.fullPath.indexOf('/login') === -1){
-				//   db.save('CURRENT_ROUTER', router.history.current.fullPath)
-				// }
+                db.clear();
+                localS.clear();
 				router.push({ path: '/login' });
 				resolve();
 				setTimeout(() => {

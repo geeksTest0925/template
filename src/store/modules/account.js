@@ -1,5 +1,5 @@
 import db from 'utils/sessionStorage';
-import { logout, fetchCurrentUserInfo, mobileCodeLogin, passwordLogin } from '@/api/public.js';
+import { logout, fetchCurrentUserInfo, mobileCodeLogin } from '@/api/public.js';
 import { validatenull } from '@/utils/validate';
 
 export default {
@@ -8,7 +8,6 @@ export default {
 		token: db.get('USER_TOKEN'),
 		userInfo: db.get('USER_INFO'),
 		loginLoading: false,
-		registerLoding: false,
 		account: db.get('ACCOUNT')
 	},
 	actions: {
