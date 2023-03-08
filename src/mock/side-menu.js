@@ -10,28 +10,28 @@ export const mockMenuDatas = [
 		id: 2,
 		name: 'subnav', // 菜单名称
 		icon: 'MailOutlined',
-		alias: '404',
+		alias: '',
 		children: [
 			{
 				id: 201,
-				name: 'option1',
-				alias: 'OPTION1_LIST',
-				action: 0,
+				name: 'option1', // 菜单名称
+				alias: 'OPTION1_LIST', // 菜单别名
+				action: 0, // 操作按钮类型
 				actionName: '',
-				category: 1,
-				code: '',
+				category: 1, // 菜单类型
+				code: '', // 菜单编号
 				component: '',
 				hasChildren: false,
-				isDeleted: 0,
-				isOpen: 1,
+				isDeleted: 0, // 是否已删除
+				isOpen: 1, // 是否打开新页面
 				isOpenName: '',
 				parentId: '2',
 				parentName: '',
-				path: '/',
-				productId: 0,
-				remark: '',
+				path: '/', // 请求地址
+				productId: 0, // 产品id
+				remark: '', // 备注
 				sort: 201,
-				source: 'iconfont iconicon_GPS'
+				source: 'iconfont iconicon_GPS' // 菜单资源
 			},
 			{
 				id: 202,

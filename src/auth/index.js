@@ -1,4 +1,3 @@
-import store from '@/store';
 import { getButtonCodeOfCurRole, getRoutesData, getRoleMenuInfo } from '@/api/auth';
 import { AUTH_DIRECTIVE_TYPE_MAP } from '@/consts/index';
 import { isUndefined } from '@/utils/validate';
@@ -8,7 +7,7 @@ import localS from '@/utils/localStorage';
 import router from '@/router';
 import { IS_SERVE } from '@/consts/index';
 import { mockMenuDatas } from '@/mock/side-menu';
-
+import { USER_BUTTONS } from '@/global/auth'
 // 插入菜单最前
 export const defaultMenu = [
 	// {
@@ -46,12 +45,12 @@ export const updateMenuOpenKeys = async (to) => {
 	let selectedKeys = [];
 	let openKeys = [];
 	// 当前选择的菜单信息
-	const currentMenu = _.find(allMenuID, (item) => item?.alias === name);
+    const currentMenu = _.find(allMenuID, (item) => item?.alias === name);
 	if (currentMenu) {
 		selectedKeys = !isUndefined(currentMenu?.id) ? [currentMenu?.id] : [];
 		openKeys = treeFindAllParent(userMenu, (data) => data?.id == currentMenu?.id);
-	}
-	store.dispatch('auth/setCurrentMenu', { openKeys, selectedKeys });
+    }
+    localS.save('CURRENT_MENU', { openKeys, selectedKeys })
 };
 
 /**
@@ -59,7 +58,7 @@ export const updateMenuOpenKeys = async (to) => {
  * @param {*} to
  */
 export const checkRoutePermission = async (to) => {
-	const userRoleRouteName = store?.state?.auth?.userRoleRouteName || (await getRoleMenuNameData());
+	const userRoleRouteName = localS.get('USER_ROLE_ROUTE_NAME') || (await getRoleMenuNameData());
 	const { name } = to || {};
 	const flag = _.includes(userRoleRouteName, name);
 	return flag;
@@ -174,7 +173,7 @@ export const getRoleButtonData = async () => {
 			return [];
 		}
 		const userButtons = Array.isArray(data) ? data : [];
-		store.dispatch('auth/setButtonData', userButtons);
+        USER_BUTTONS.value = userButtons
 		return userButtons;
 	} catch (error) {
 		console.log('error', error);
@@ -192,9 +191,8 @@ const getRoleMenuNameData = async () => {
 		if (code === 200) {
 			userMenu = Array.isArray(data) && data.length > 0 ? data : null;
 		}
-		// userMenu = userMenu || (process.env.NODE_ENV === "development" ? mockMenuDatas : defaultMenu);
 		const userRoleRouteName = getValueArr(userMenu, 'alias');
-		store.dispatch('auth/setRoleRouteName', userRoleRouteName);
+        localS.save('USER_ROLE_ROUTE_NAME', userRoleRouteName)
 		return userRoleRouteName;
 	} catch (error) {
 		console.log(error);
@@ -214,7 +212,6 @@ export const getRoleMenuData = async () => {
 		} else {
 			userMenu = Array.isArray(useMenuInfo) && useMenuInfo.length > 0 ? useMenuInfo : null;
 		}
-		// userMenu = userMenu || (process.env.NODE_ENV === "development" ? mockMenuDatas : defaultMenu);
 		userMenu = matchRoute([...defaultMenu, ...userMenu, ...defaultMenuTail]);
 		const allMenuID = getOneArr(userMenu);
 		localS.save('USER_MENUS', userMenu);
@@ -292,11 +289,9 @@ export class AuthDirective {
 				return;
 			}
 			let display = 'block';
-			const userButtons = store.state.auth.userButtons || (await getRoleButtonData());
-			console.log(userButtons, 'userButtons...');
+			const userButtons = USER_BUTTONS.value || (await getRoleButtonData());
 			const authArr = handleBindingValue(code);
 			const result = _.intersection(authArr, userButtons);
-			// console.log("result", result, userButtons);
 			// 或:传入权限只要有一个在权限列表就展示
 			if (type === AUTH_DIRECTIVE_TYPE_MAP['OR'] && result?.length === 0 && code) {
 				display = 'none';

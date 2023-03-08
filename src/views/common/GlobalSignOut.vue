@@ -1,7 +1,7 @@
 <template>
 	<a-dropdown class="sign-out-select" overlayClassName="sign-out-dropdown" placement="topRight">
 		<a class="ant-dropdown-link" @click.prevent>
-			{{ userInfo.nick_name }}
+			{{  }}
 			<DownOutlined />
 		</a>
 		<template #overlay>
@@ -19,23 +19,13 @@ import { computed } from 'vue';
 import store from '@/store';
 import { useRouter } from 'vue-router';
 const router = useRouter();
-const userInfo = computed(() => {
-	return store.getters.userInfo;
-});
 const clickMenuItem = ({ key }) => {
 	if (key === 'logout') {
 		onOk();
 	}
 };
 const onOk = () => {
-	store
-		.dispatch('account/LogOut')
-		.then(() => {
-			router.replace({ path: '/login' });
-		})
-		.catch((err) => {
-			message.error(err.msg);
-		});
+	console.log('点击退出');
 };
 </script>
 

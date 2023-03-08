@@ -42,7 +42,7 @@ let HTTP_REQUEST = axios.create({
 HTTP_REQUEST.interceptors.request.use(
 	(config) => {
 		// 有 token就带上
-		const token = store.state.account.token;
+		const token = db.get('USER_TOKEN');
 		if (token && token !== '') {
 			config.headers['Blade-Auth'] = 'bearer ' + token;
 		}

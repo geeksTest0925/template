@@ -17,17 +17,5 @@ const handleSubmit = (formState) => {
 	// 设置权限自定义指令
 	// if (IS_SERVE) await authInit();
 	console.log(formState, '登录表单信息...');
-	store
-		.dispatch('account/loginByNameAndPwd', formState)
-		.then(async () => {
-			// 设置权限自定义指令
-			if (IS_SERVE) await authInit();
-			store.commit('account/SET_LOGIN_LOADING', false);
-			router.push({ name: 'HOME_DETAIL' });
-		})
-		.catch((err) => {
-			store.commit('account/SET_LOGIN_LOADING', false);
-			message.error(err);
-		});
 };
 </script>

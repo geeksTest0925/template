@@ -58,6 +58,7 @@ export const useCancel = () => {
 	});
 	return source.token;
 };
+
 export const isCancel = (err) => {
 	return axios.isCancel(err);
 };

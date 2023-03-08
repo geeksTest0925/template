@@ -2,7 +2,6 @@
 import request from 'utils/http';
 
 const base_api = process.env.VUE_APP_BaseServiceUrl;
-// const base_api = 'https://webartestapi.hereto.cn:18443/api';
 
 // 手机号验证码登录
 export const mobileCodeLogin = (data) => {

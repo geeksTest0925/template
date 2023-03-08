@@ -10,7 +10,6 @@
 			<a-layout-content>
 				<slot></slot>
 			</a-layout-content>
-			<!-- <global-footer :copyright="copyright" /> -->
 		</a-layout>
 	</a-layout>
 </template>
