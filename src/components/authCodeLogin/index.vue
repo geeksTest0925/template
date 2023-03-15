@@ -55,7 +55,6 @@
 <script setup>
 import { reactive, computed, ref, defineProps } from 'vue';
 import { Form, message } from 'ant-design-vue';
-import store from '@/store';
 import { resultFactory } from './utils';
 import { mobileCode } from './request';
 const defaultCountdownNumber = 60;
@@ -121,6 +120,7 @@ const props = defineProps({
 });
 const useForm = Form.useForm;
 const formState = reactive({});
+const loginLoading = ref(false)
 const loginDisabled = computed(() => {
 	return (
 		!(formState.mobile && formState.verifyCode) &&
@@ -130,9 +130,6 @@ const loginDisabled = computed(() => {
 });
 const countdown = ref(props.countdownNumber);
 const clear = ref(null);
-const loginLoading = computed(() => {
-	return store.state?.account?.loginLoading;
-});
 const codeButtonDisabled = computed(() => {
 	return countdown.value < defaultCountdownNumber && countdown.value >= 1;
 });
@@ -239,7 +236,6 @@ const getVerification = async () => {
 const handleLogin = () => {
 	validate()
 		.then(() => {
-			store.commit('account/SET_LOGIN_LOADING', true);
 			props.submitLogin && props.submitLogin(formState);
 		})
 		.catch((err) => {

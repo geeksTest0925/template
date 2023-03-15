@@ -2,11 +2,9 @@ import axios from 'axios';
 import qs from 'qs';
 import { message, notification } from 'ant-design-vue';
 import moment from 'moment';
-import store from '../store';
 import router from '../router';
 import db from 'utils/sessionStorage';
 import { showReloadModal } from 'utils/tips';
-import { TIME_OUT } from '@/consts/index';
 moment.locale('zh-cn');
 
 /**
@@ -42,7 +40,7 @@ let HTTP_REQUEST = axios.create({
 HTTP_REQUEST.interceptors.request.use(
 	(config) => {
 		// 有 token就带上
-		const token = db.get('USER_TOKEN');
+        let token = db.get("TOKEN");
 		if (token && token !== '') {
 			config.headers['Blade-Auth'] = 'bearer ' + token;
 		}
@@ -136,7 +134,6 @@ HTTP_REQUEST.interceptors.response.use(
 					});
 					break;
 				case 430:
-					store.commit('account/SET_LOGIN_LOADING', false);
 					message.error('该用户未注册');
 					// hack方案 防止两次弹窗
 					return;

@@ -37,16 +37,17 @@ import { isUndefined } from '@/utils/validate';
 import { useRoute } from 'vue-router';
 import { IS_SERVE } from '@/consts/index';
 import localS from '@/utils/localStorage';
+import { USER_BUTTONS, USER_ALL_MENU_ID, USER_MENUS, USER_ROLE_ROUTE_NAME, CURRENT_MENU } from '@/global';
 const route = useRoute();
 
 const state = reactive({
-    openKeys: localS.get('CURRENT_MENU')?.openKeys || [1],
-	selectedKeys: localS.get('CURRENT_MENU')?.selectedKeys || [1],
-	userMenu: IS_SERVE ? localS.get('USER_MENUS') || [...defaultMenu, ...defaultMenuTail] : mockMenuDatas
+    openKeys: CURRENT_MENU.value?.openKeys || [1],
+	selectedKeys: CURRENT_MENU.value?.selectedKeys || [1],
+	userMenu: IS_SERVE ? USER_MENUS.value || [...defaultMenu, ...defaultMenuTail] : mockMenuDatas
 });
 
 watch(
-	() => localS.get('CURRENT_MENU'),
+	() => CURRENT_MENU.value,
     (newvalue, oldvalue) => {
 		state.selectedKeys = newvalue?.selectedKeys;
 		state.openKeys = newvalue?.openKeys;
@@ -57,7 +58,7 @@ watch(
 );
 
 watch(
-	() => localS.get('USER_MENUS'),
+	() => USER_MENUS.value,
 	(newvalue, oldvalue) => {
 		state.userMenu = newvalue;
 	},

@@ -7,7 +7,7 @@ import localS from '@/utils/localStorage';
 import router from '@/router';
 import { IS_SERVE } from '@/consts/index';
 import { mockMenuDatas } from '@/mock/side-menu';
-import { USER_BUTTONS } from '@/global/auth'
+import { USER_BUTTONS, USER_ALL_MENU_ID, USER_MENUS, USER_ROLE_ROUTE_NAME, CURRENT_MENU, TOKEN, USER_INFO } from '@/global';
 // 插入菜单最前
 export const defaultMenu = [
 	// {
@@ -40,8 +40,8 @@ export const authInit = async () => {
  */
 export const updateMenuOpenKeys = async (to) => {
 	const name = to?.meta?.activeName || to.name;
-	const allMenuID = localS.get('USER_ALL_MENU_ID') || (await getRoleMenuData());
-	const userMenu = localS.get('USER_MENUS') || (await getRoleMenuData());
+	const allMenuID = USER_ALL_MENU_ID.value || (await getRoleMenuData());
+	const userMenu = USER_MENUS.value || (await getRoleMenuData());
 	let selectedKeys = [];
 	let openKeys = [];
 	// 当前选择的菜单信息
@@ -50,7 +50,7 @@ export const updateMenuOpenKeys = async (to) => {
 		selectedKeys = !isUndefined(currentMenu?.id) ? [currentMenu?.id] : [];
 		openKeys = treeFindAllParent(userMenu, (data) => data?.id == currentMenu?.id);
     }
-    localS.save('CURRENT_MENU', { openKeys, selectedKeys })
+    CURRENT_MENU.value = { openKeys, selectedKeys };
 };
 
 /**
@@ -58,7 +58,7 @@ export const updateMenuOpenKeys = async (to) => {
  * @param {*} to
  */
 export const checkRoutePermission = async (to) => {
-	const userRoleRouteName = localS.get('USER_ROLE_ROUTE_NAME') || (await getRoleMenuNameData());
+	const userRoleRouteName = USER_ROLE_ROUTE_NAME.value || (await getRoleMenuNameData());
 	const { name } = to || {};
 	const flag = _.includes(userRoleRouteName, name);
 	return flag;
@@ -192,7 +192,7 @@ const getRoleMenuNameData = async () => {
 			userMenu = Array.isArray(data) && data.length > 0 ? data : null;
 		}
 		const userRoleRouteName = getValueArr(userMenu, 'alias');
-        localS.save('USER_ROLE_ROUTE_NAME', userRoleRouteName)
+        USER_ROLE_ROUTE_NAME.value = userRoleRouteName;
 		return userRoleRouteName;
 	} catch (error) {
 		console.log(error);
@@ -214,8 +214,8 @@ export const getRoleMenuData = async () => {
 		}
 		userMenu = matchRoute([...defaultMenu, ...userMenu, ...defaultMenuTail]);
 		const allMenuID = getOneArr(userMenu);
-		localS.save('USER_MENUS', userMenu);
-		localS.save('USER_ALL_MENU_ID', allMenuID);
+		USER_MENUS.value = userMenu;
+        USER_ALL_MENU_ID.value = allMenuID;
 		return userMenu;
 	} catch (error) {
 		console.log('error', error);
@@ -276,9 +276,7 @@ export class AuthDirective {
 	}
 
 	async init() {
-		let token = db.get('USER_TOKEN');
-		let user = db.get('USER_INFO');
-		if (token.length && user && IS_SERVE) {
+		if (TOKEN.value && USER_INFO.value && IS_SERVE) {
 			await getRoleButtonData();
 		}
 	}

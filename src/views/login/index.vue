@@ -6,16 +6,25 @@
 import AuthCodeLogin from '@/components/authCodeLogin';
 import { authInit } from '@/auth';
 import { message } from 'ant-design-vue';
-import store from '@/store';
 import { useRouter } from 'vue-router';
 import { IS_SERVE } from '@/consts/index';
-
+import { mobileCodeLogin } from '@/api/public';
+import store from '@/store';
 // LOGO背景
 const logoUrl = require('../../assets/image/login/img_logo.png');
 const router = useRouter();
-const handleSubmit = (formState) => {
+const handleSubmit = async (formState) => {
 	// 设置权限自定义指令
-	// if (IS_SERVE) await authInit();
-	console.log(formState, '登录表单信息...');
+    console.log(formState, '登录表单信息...');
+    try {
+        // if (IS_SERVE) await authInit();
+        const result = await mobileCodeLogin(formState);
+        store.dispatch('account/setToken',result.data.access_token)
+        store.dispatch('account/setUserInfo',result.data)
+        router.push({ name: "HOME_DETAIL" });
+    } catch (error) {
+        
+    }
+    
 };
 </script>

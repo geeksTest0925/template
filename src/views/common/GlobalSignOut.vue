@@ -1,7 +1,7 @@
 <template>
 	<a-dropdown class="sign-out-select" overlayClassName="sign-out-dropdown" placement="topRight">
 		<a class="ant-dropdown-link" @click.prevent>
-			{{  }}
+			{{ userInfo.nick_name }}
 			<DownOutlined />
 		</a>
 		<template #overlay>
@@ -16,14 +16,17 @@
 import { DownOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
 import { computed } from 'vue';
-import store from '@/store';
 import { useRouter } from 'vue-router';
+import store from '@/store';
 const router = useRouter();
 const clickMenuItem = ({ key }) => {
 	if (key === 'logout') {
 		onOk();
 	}
 };
+const userInfo = computed(() => {
+    return store.getters.userInfo
+})
 const onOk = () => {
 	console.log('点击退出');
 };

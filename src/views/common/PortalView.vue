@@ -1,7 +1,7 @@
 <template>
 	<portal-layout>
 		<router-view v-slot="{ Component, route }">
-			<keep-alive :include="['projectList']">
+			<keep-alive>
 				<component :is="Component" :key="route.path" />
 			</keep-alive>
 		</router-view>

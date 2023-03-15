@@ -95,9 +95,9 @@ router.beforeEach(async (to, from, next) => {
 	if (whiteList.indexOf(to.path) !== -1) {
 		next();
 		return;
-	}
-	let token = db.get('USER_TOKEN');
-	let user = db.get('USER_INFO');
+    }
+    let token = db.get("USER_TOKEN");
+    let user = db.get("USER_INFO");
 	if (token.length && user) {
 		// 非菜单点击时路由变化的菜单高亮
 		await updateMenuOpenKeys(to);
