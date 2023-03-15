@@ -3,7 +3,7 @@ import qs from 'qs';
 import { message, notification } from 'ant-design-vue';
 import moment from 'moment';
 import router from '../router';
-import db from 'utils/sessionStorage';
+import localS from './localStorage';
 import { showReloadModal } from 'utils/tips';
 moment.locale('zh-cn');
 
@@ -40,7 +40,7 @@ let HTTP_REQUEST = axios.create({
 HTTP_REQUEST.interceptors.request.use(
 	(config) => {
 		// 有 token就带上
-        let token = db.get("TOKEN");
+        let token = localS.get("TOKEN");
 		if (token && token !== '') {
 			config.headers['Blade-Auth'] = 'bearer ' + token;
 		}
@@ -62,10 +62,7 @@ HTTP_REQUEST.interceptors.response.use(
 		if (error.response) {
 			switch (error.response.status) {
 				case 466:
-					db.clear();
-					if (router.history.current.fullPath.indexOf('/login') === -1) {
-						db.save('CURRENT_ROUTER', router.history.current.fullPath);
-					}
+					localS.clear();
 					location.assign('/#/login');
 					break;
 				case 400:

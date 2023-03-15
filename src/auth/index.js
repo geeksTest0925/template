@@ -2,12 +2,11 @@ import { getButtonCodeOfCurRole, getRoutesData, getRoleMenuInfo } from '@/api/au
 import { AUTH_DIRECTIVE_TYPE_MAP } from '@/consts/index';
 import { isUndefined } from '@/utils/validate';
 import _ from 'lodash';
-import db from 'utils/sessionStorage';
 import localS from '@/utils/localStorage';
 import router from '@/router';
 import { IS_SERVE } from '@/consts/index';
 import { mockMenuDatas } from '@/mock/side-menu';
-import { USER_BUTTONS, USER_ALL_MENU_ID, USER_MENUS, USER_ROLE_ROUTE_NAME, CURRENT_MENU, TOKEN, USER_INFO } from '@/global';
+import { USER_BUTTONS, USER_ALL_MENU_ID, USER_MENUS, USER_ROLE_ROUTE_NAME, CURRENT_MENU } from '@/global';
 // 插入菜单最前
 export const defaultMenu = [
 	// {
@@ -276,7 +275,7 @@ export class AuthDirective {
 	}
 
 	async init() {
-		if (TOKEN.value && USER_INFO.value && IS_SERVE) {
+		if (localS.get('TOKEN') && localS.get('USER_INFO') && IS_SERVE) {
 			await getRoleButtonData();
 		}
 	}

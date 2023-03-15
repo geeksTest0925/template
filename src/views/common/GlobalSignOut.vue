@@ -17,7 +17,7 @@ import { DownOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-import store from '@/store';
+import localS from '@/utils/localStorage';
 const router = useRouter();
 const clickMenuItem = ({ key }) => {
 	if (key === 'logout') {
@@ -25,7 +25,7 @@ const clickMenuItem = ({ key }) => {
 	}
 };
 const userInfo = computed(() => {
-    return store.getters.userInfo
+    return localS.get('USER_INFO')
 })
 const onOk = () => {
 	console.log('点击退出');

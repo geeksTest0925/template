@@ -9,7 +9,7 @@ import { message } from 'ant-design-vue';
 import { useRouter } from 'vue-router';
 import { IS_SERVE } from '@/consts/index';
 import { mobileCodeLogin } from '@/api/public';
-import store from '@/store';
+import localS from '@/utils/localStorage';
 // LOGO背景
 const logoUrl = require('../../assets/image/login/img_logo.png');
 const router = useRouter();
@@ -19,8 +19,8 @@ const handleSubmit = async (formState) => {
     try {
         // if (IS_SERVE) await authInit();
         const result = await mobileCodeLogin(formState);
-        store.dispatch('account/setToken',result.data.access_token)
-        store.dispatch('account/setUserInfo',result.data)
+        localS.save('TOKEN', result.data.access_token);
+        localS.save('USER_INFO', result.data);
         router.push({ name: "HOME_DETAIL" });
     } catch (error) {
         

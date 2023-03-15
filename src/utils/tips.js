@@ -1,4 +1,3 @@
-import store from '../store';
 import router from '../router';
 import moment from 'moment';
 import { Modal } from 'ant-design-vue';
@@ -24,7 +23,6 @@ function showExpireModal(diffTime) {
 			onCancel() {
 				db.clear();
 				localS.clear();
-				db.save('CURRENT_ROUTER', router.history.current.fullPath);
 				location.reload();
 				reject;
 			}
@@ -55,19 +53,5 @@ function showReloadModal() {
 		}
 	});
 }
-function showExpireTime() {
-	let expireTime = toMoment(store.state.account.expireTime);
-	const now = moment();
-	const dif = expireTime.diff(now, 's');
-	if (dif <= 180 && dif > 0) {
-		return showExpireModal(dif);
-	} else if (now - expireTime >= 0) {
-		return showReloadModal();
-	} else {
-		return new Promise((resolve, reject) => {
-			resolve();
-		});
-	}
-}
 
-export { showExpireTime, showReloadModal };
+export { showReloadModal };

@@ -1,5 +1,5 @@
-import store from '@/store';
 import { message } from 'ant-design-vue';
+import localS from './localStorage';
 
 export const ROLES = {
 	admin: 'mall_admin',
@@ -22,7 +22,7 @@ const isAdmin = (str) => {
 // 传入权限数组/权限字符串，返回是否有权限
 export function isHasPermission(ruleOrRules, isShowMessage = true) {
 	try {
-		let curentRole = store.state.account.userInfo.role_name;
+		let curentRole = localS.get('USER_INFO').role_name;
 		if (isAdmin(curentRole)) return true;
 		let hasPermission = false;
 		if (typeof ruleOrRules === 'string') {

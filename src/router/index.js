@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import PortalView from '@/views/common/PortalView';
-import db from 'utils/sessionStorage';
+import localS from '@/utils/localStorage';
 import { checkRoutePermission, updateMenuOpenKeys } from '@/auth/index';
 const constRouter = [
 	{
@@ -96,8 +96,8 @@ router.beforeEach(async (to, from, next) => {
 		next();
 		return;
     }
-    let token = db.get("USER_TOKEN");
-    let user = db.get("USER_INFO");
+    let token = localS.get("USER_TOKEN");
+    let user = localS.get("USER_INFO");
 	if (token.length && user) {
 		// 非菜单点击时路由变化的菜单高亮
 		await updateMenuOpenKeys(to);
@@ -117,7 +117,6 @@ router.beforeEach(async (to, from, next) => {
 	} else {
 		// mock以防影响正常流程
 		await updateMenuOpenKeys(to);
-		db.save('CURRENT_ROUTER', to.path);
 		next();
 	}
 });
